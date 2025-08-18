@@ -3,7 +3,7 @@ import { extractJsonFromStatusBar } from './parser';
 import type { PokedexData, PokedexEntry, PokedexType, RemotePokedexData, ShareableType } from './pokedex';
 import * as Pokedex from './pokedex';
 import { renderSystem } from './systems';
-import { checkForUpdates, showChangelogModal } from './version';
+import { checkForUpdates, showChangelogModal, getChangelog } from './version';
 
 const triggerAction = async (text: string, index: number) => {
   if (!text || text.trim().length === 0) return;
@@ -15,33 +15,44 @@ const triggerAction = async (text: string, index: number) => {
 
     // 将行动选择也添加到变量中
     variables['行动选择'] = index + 1;
-    
+
     // 将变量转换为字符串
     const variablesString = JSON.stringify(variables, null, 2);
 
     // 准备发送给AI的引导文本
     const preamble = `[OOC: 以下是发送给你的、用于驱动剧情的完整游戏状态。请仔细阅读并依据此状态和我选择的行动来生成后续情节。]\n\n**当前游戏状态**:\n这是当前楼层的所有变量信息，它代表了游戏世界的完整快照，包括角色状态、物品、图鉴、系统进度等。请将这些信息作为你生成回应的唯一真实来源。`;
-    
+
     // 将引导文本和变量JSON都包裹起来
-    const wrappedContent = `<variables>\n${preamble}\n\n${variablesString}\n</variables>`;
+    const wrappedContent = `<Variables>\n${preamble}\n\n${variablesString}\n</Variables>`;
 
     // 准备最终要发送的消息
     const messageToSend = `${wrappedContent}\n\n${text}`;
 
-    // 使用 /send 命令发送消息
-    const command = `/send ${messageToSend} | /trigger`;
-    await triggerSlash(command);
-    
+    // 使用 createChatMessages 发送消息，避免 slash command 的解析问题
+    await createChatMessages(
+      [
+        {
+          role: 'user',
+          message: messageToSend,
+          data: variables,
+        },
+      ],
+      { refresh: 'none' },
+    );
+
+    // 触发AI回应
+    await triggerSlash('/trigger');
+
     toastr.success(`已选择行动: ${text}`);
   } catch (error) {
-    console.error("行动失败:", error);
-    toastr.error("行动失败，请查看控制台日志。");
+    console.error('行动失败:', error);
+    toastr.error('行动失败，请查看控制台日志。');
     // 如果失败，需要恢复选项列表
     const optionsList = $('#options-list');
     if (optionsList.hasClass('disabled')) {
       // 这里需要一个函数来重新渲染选项，暂时先移除disabled状态
       // 实际应用中可能需要调用 storyRenderer.renderActionOptions()
-      optionsList.removeClass('disabled'); 
+      optionsList.removeClass('disabled');
     }
   }
 };
@@ -1132,6 +1143,37 @@ class StoryRenderer {
             updates['世界.系统'] = currentSystemData;
             console.log(`[StoryRenderer] 检测到庇护所升级事件，已处理。`);
 
+          } else if (newSystemData['名称'] === '以物换物系统' && newSystemData['可换取的物品']) {
+            const refreshedItems = newSystemData['可换取的物品'];
+            const currentPokedexItems = _.cloneDeep(_.get(currentVars, '世界.图鉴.物品', []));
+            let newDiscoveries = 0;
+        
+            refreshedItems.forEach((item: any) => {
+                if (item['名称'] && !currentPokedexItems.some((existing: any) => existing['名称'] === item['名称'])) {
+                    const pokedexEntry: { [key: string]: any } = {
+                        '名称': item['名称'],
+                    };
+                    if (item['品阶']) pokedexEntry['品阶'] = item['品阶'];
+                    if (item['描述']) pokedexEntry['描述'] = item['描述'];
+                    
+                    currentPokedexItems.push(pokedexEntry);
+                    newDiscoveries++;
+                    toastr.info(`发现新物品：“${item['名称']}”，已自动收录图鉴！`);
+                }
+            });
+        
+            if (newDiscoveries > 0) {
+                updates['世界.图鉴.物品'] = currentPokedexItems;
+                console.log(`[StoryRenderer] 以物换物刷新，新增 ${newDiscoveries} 个物品到图鉴。`);
+            }
+        
+            // 同时更新系统本身的可交换物品列表
+            const systemDataToUpdate = _.cloneDeep(_.get(currentVars, '世界.系统', {}));
+            systemDataToUpdate['可换取的物品'] = refreshedItems;
+            if(newSystemData['提示']) systemDataToUpdate['提示'] = newSystemData['提示'];
+            updates['世界.系统'] = systemDataToUpdate;
+            console.log(`[StoryRenderer] 检测到以物换物系统刷新，已更新可交换物品列表。`);
+
           } else if (newSystemData['新物品发现']) {
             const newItems = Array.isArray(newSystemData['新物品发现']) ? newSystemData['新物品发现'] : [newSystemData['新物品发现']];
             const currentPokedex = _.cloneDeep(_.get(currentVars, '世界.图鉴.物品', []));
@@ -1447,14 +1489,31 @@ function initCustomActionModal() {
     const userInput = (input.val() as string).trim();
     if (userInput) {
       hideModal();
-      const messageId = getCurrentMessageId();
-      const variables = getVariables({ type: 'message', message_id: messageId });
-      const variablesString = JSON.stringify(variables, null, 2);
-      const command = `/send ${userInput}\n\n<variables>\n${variablesString}\n</variables> | /trigger`;
-      
       toastr.info('正在执行自定义行动...');
-      await triggerSlash(command);
-      toastr.success('自定义行动已发送！');
+      try {
+        const messageId = getCurrentMessageId();
+        const variables = getVariables({ type: 'message', message_id: messageId });
+        const variablesString = JSON.stringify(variables, null, 2);
+        const preamble = `[OOC: 以下是发送给你的、用于驱动剧情的完整游戏状态。请仔细阅读并依据此状态和我选择的行动来生成后续情节。]\n\n**当前游戏状态**:\n这是当前楼层的所有变量信息，它代表了游戏世界的完整快照，包括角色状态、物品、图鉴、系统进度等。请将这些信息作为你生成回应的唯一真实来源。`;
+        const wrappedContent = `<Variables>\n${preamble}\n\n${variablesString}\n</Variables>`;
+        const messageToSend = `${wrappedContent}\n\n${userInput}`;
+
+        await createChatMessages(
+          [
+            {
+              role: 'user',
+              message: messageToSend,
+              data: variables,
+            },
+          ],
+          { refresh: 'none' },
+        );
+        await triggerSlash('/trigger');
+        toastr.success('自定义行动已发送！');
+      } catch (error) {
+        console.error('自定义行动失败:', error);
+        toastr.error('自定义行动失败，请查看控制台日志。');
+      }
     } else {
       toastr.warning('请输入行动内容。');
     }
@@ -1897,26 +1956,26 @@ async function initVersionChecker() {
   const $versionBtn = $('#version-info-btn');
   if (!$versionBtn.length) return;
 
-  const updateInfo = await checkForUpdates();
+  // 页面加载时检查一次版本，用于显示更新提示红点
+  const initialUpdateInfo = await checkForUpdates();
 
-  if (updateInfo) {
-    if (updateInfo.hasUpdate) {
-      // Add a small notification dot
-      $versionBtn.append('<span class="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-500"></span>');
-    }
-
-    $versionBtn.on('click', () => {
-      if (updateInfo.changelogHtml) {
-        showChangelogModal(updateInfo.changelogHtml, updateInfo.hasUpdate);
-      } else {
-        toastr.warning('无法获取更新日志。');
-      }
-    });
-  } else {
-    $versionBtn.on('click', () => {
-        toastr.error('检查更新失败，无法显示日志。');
-    });
+  if (initialUpdateInfo?.hasUpdate) {
+    $versionBtn.append('<span class="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-500"></span>');
   }
+
+  // 每次点击都重新获取最新的changelog并显示
+  $versionBtn.on('click', async () => {
+    toastr.info('正在获取最新更新日志...');
+    const changelogHtml = await getChangelog();
+    // 再次检查版本状态，以确定“立即更新”按钮是否显示
+    const currentUpdateInfo = await checkForUpdates();
+    
+    if (changelogHtml && currentUpdateInfo) {
+      showChangelogModal(changelogHtml, currentUpdateInfo.hasUpdate);
+    } else {
+      toastr.error('无法显示更新日志。');
+    }
+  });
 }
 
 $(() => {

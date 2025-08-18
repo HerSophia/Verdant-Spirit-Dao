@@ -18,6 +18,25 @@ interface UpdateInfo {
  * 检查是否有新版本并获取更新日志
  * @returns {Promise<UpdateInfo | null>}
  */
+/**
+ * 仅从远程获取并解析更新日志。
+ * @returns {Promise<string>} 返回HTML格式的更新日志。
+ */
+export async function getChangelog(): Promise<string> {
+  try {
+    const changelogResponse = await fetch(`${GITHUB_REPO_RAW_URL}changlog.md`);
+    if (changelogResponse.ok) {
+      const changelogMd = await changelogResponse.text();
+      return marked.parse(changelogMd) as string;
+    }
+    return '<p>无法加载更新日志。</p>';
+  } catch (e) {
+    console.error("获取更新日志失败:", e);
+    toastr.error('获取更新日志失败，请查看控制台。');
+    return '<p>获取更新日志失败。</p>';
+  }
+}
+
 export async function checkForUpdates(): Promise<UpdateInfo | null> {
   try {
     // 从 GitHub 获取最新的 version.json
@@ -30,20 +49,7 @@ export async function checkForUpdates(): Promise<UpdateInfo | null> {
 
     const hasUpdate = remoteVersion.localeCompare(LOCAL_VERSION, undefined, { numeric: true, sensitivity: 'base' }) > 0;
 
-    let changelogHtml: string | null = null;
-    // 无论是否有更新，都尝试获取更新日志
-    try {
-      const changelogResponse = await fetch(`${GITHUB_REPO_RAW_URL}changlog.md`);
-      if (changelogResponse.ok) {
-        const changelogMd = await changelogResponse.text();
-        changelogHtml = marked.parse(changelogMd) as string;
-      } else {
-        changelogHtml = '<p>无法加载更新日志。</p>';
-      }
-    } catch (e) {
-      console.error("获取更新日志失败:", e);
-      changelogHtml = '<p>无法加载更新日志。</p>';
-    }
+    const changelogHtml = await getChangelog();
 
     let filesToUpdate: string[] | undefined = undefined;
     if (hasUpdate) {

@@ -3,7 +3,7 @@ import toastr from 'toastr';
 import './FirstMes.scss';
 import initialPokedex from '../什么我要在玄幻修仙世界种田/pokedex-data.json';
 import _ from 'lodash';
-import { checkForUpdates, showChangelogModal } from '../什么我要在玄幻修仙世界种田/version';
+import { checkForUpdates, showChangelogModal, getChangelog } from '../什么我要在玄幻修仙世界种田/version';
 
 // --- Type Definitions ---
 interface IPointOption {
@@ -737,27 +737,34 @@ function initializeCharacterNameEditor() {
 // --- 版本检查功能 ---
 async function initializeVersionChecker() {
   const $versionChecker = $('#version-checker');
-  const updateInfo = await checkForUpdates();
+  
+  // 页面加载时检查一次版本，用于显示UI提示
+  const initialUpdateInfo = await checkForUpdates();
 
-  if (updateInfo) {
-    // 始终为版本区域绑定点击事件
-    $versionChecker.on('click', () => {
-      if (updateInfo.changelogHtml) {
-        showChangelogModal(updateInfo.changelogHtml, updateInfo.hasUpdate);
-      } else {
-        toastr.warning('无法获取更新日志。');
-      }
-    });
-
-    if (updateInfo.hasUpdate) {
+  if (initialUpdateInfo) {
+    if (initialUpdateInfo.hasUpdate) {
       $versionChecker
-        .html(`<i class="fas fa-arrow-up text-green-400 mr-1"></i><span class="text-green-400 hover:underline">发现新版本 (${updateInfo.remoteVersion})</span>`);
+        .html(`<i class="fas fa-arrow-up text-green-400 mr-1"></i><span class="text-green-400 hover:underline">发现新版本 (${initialUpdateInfo.remoteVersion})</span>`);
     } else {
       $versionChecker.html(`<i class="fas fa-check-circle text-gray-500 mr-1"></i><span class="hover:underline">已是最新版本</span>`);
     }
   } else {
     $versionChecker.html(`<i class="fas fa-exclamation-triangle text-red-500 mr-1"></i><span class="text-red-500">检查更新失败</span>`);
   }
+
+  // 每次点击都重新获取最新的changelog并显示
+  $versionChecker.on('click', async () => {
+    toastr.info('正在获取最新更新日志...');
+    const changelogHtml = await getChangelog();
+    // 再次检查版本状态，以确定“立即更新”按钮是否显示
+    const currentUpdateInfo = await checkForUpdates();
+    
+    if (changelogHtml && currentUpdateInfo) {
+      showChangelogModal(changelogHtml, currentUpdateInfo.hasUpdate);
+    } else {
+      toastr.error('无法显示更新日志。');
+    }
+  });
 }
 
 // DOM加载完成后执行
