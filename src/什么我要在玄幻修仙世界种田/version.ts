@@ -2,7 +2,7 @@ import { processFileUpdate } from '../update-script';
 declare const marked: any;
 
 // 请将这里的 URL 替换为你的 GitHub 仓库的 Raw 地址
-const GITHUB_REPO_RAW_URL = 'https://github.com/HerSophia/Verdant-Spirit-Dao/main/';
+const GITHUB_REPO_RAW_URL = 'https://raw.githubusercontent.com/HerSophia/Verdant-Spirit-Dao/main/';
 
 // 当前版本号，需要与 version.json 保持一致
 const LOCAL_VERSION = 'v0.3.1';
@@ -31,9 +31,8 @@ export async function checkForUpdates(): Promise<UpdateInfo | null> {
     const hasUpdate = remoteVersion.localeCompare(LOCAL_VERSION, undefined, { numeric: true, sensitivity: 'base' }) > 0;
 
     let changelogHtml: string | null = null;
-    let filesToUpdate: string[] | undefined = undefined;
-    if (hasUpdate) {
-      // 如果有更新，则获取 changelog.md
+    // 无论是否有更新，都尝试获取更新日志
+    try {
       const changelogResponse = await fetch(`${GITHUB_REPO_RAW_URL}changlog.md`);
       if (changelogResponse.ok) {
         const changelogMd = await changelogResponse.text();
@@ -41,6 +40,13 @@ export async function checkForUpdates(): Promise<UpdateInfo | null> {
       } else {
         changelogHtml = '<p>无法加载更新日志。</p>';
       }
+    } catch (e) {
+      console.error("获取更新日志失败:", e);
+      changelogHtml = '<p>无法加载更新日志。</p>';
+    }
+
+    let filesToUpdate: string[] | undefined = undefined;
+    if (hasUpdate) {
       filesToUpdate = versionData.files_to_update || [];
     }
 
@@ -60,8 +66,9 @@ export async function checkForUpdates(): Promise<UpdateInfo | null> {
 /**
  * 创建并显示更新日志模态框
  * @param {string} contentHtml - 要显示的 HTML 内容
+ * @param {boolean} hasUpdate - 是否有可用更新
  */
-export function showChangelogModal(contentHtml: string) {
+export function showChangelogModal(contentHtml: string, hasUpdate: boolean) {
   // 移除已存在的模态框，防止重复
   $('#changelog-modal-overlay').remove();
 
@@ -69,12 +76,11 @@ export function showChangelogModal(contentHtml: string) {
     <div id="changelog-modal-overlay" class="modal-overlay">
       <div class="modal-content">
         <button id="changelog-modal-close-btn" class="modal-close-btn">&times;</button>
-        <h3 class="modal-title"><i class="fas fa-info-circle mr-2"></i>更新日志</h3>
         <div class="modal-body prose prose-invert max-w-none">
           ${contentHtml}
         </div>
         <div class="modal-footer" style="text-align: right; margin-top: 1rem;">
-          <button id="update-now-btn" class="btn-primary">立即更新</button>
+          ${hasUpdate ? '<button id="update-now-btn" class="btn-primary">立即更新</button>' : ''}
         </div>
       </div>
     </div>
@@ -91,23 +97,25 @@ export function showChangelogModal(contentHtml: string) {
     }
   });
 
-  $('#update-now-btn').on('click', async function() {
-    const btn = $(this);
-    btn.prop('disabled', true).text('更新中...');
-    try {
-        const updateInfo = await checkForUpdates();
-        if (updateInfo?.hasUpdate && updateInfo.filesToUpdate) {
-            await updateCardFiles(updateInfo.filesToUpdate);
-            toastr.success('所有文件更新完成！');
-            $modalOverlay.addClass('hidden').remove();
-        } else {
-            toastr.warning('未找到需要更新的文件或版本已是最新。');
-        }
-    } catch (error: any) {
-        toastr.error(`更新过程中发生错误: ${error.message}`);
-        btn.prop('disabled', false).text('立即更新');
-    }
-  });
+  if (hasUpdate) {
+    $('#update-now-btn').on('click', async function() {
+      const btn = $(this);
+      btn.prop('disabled', true).text('更新中...');
+      try {
+          const updateInfo = await checkForUpdates();
+          if (updateInfo?.hasUpdate && updateInfo.filesToUpdate) {
+              await updateCardFiles(updateInfo.filesToUpdate);
+              toastr.success('所有文件更新完成！');
+              $modalOverlay.addClass('hidden').remove();
+          } else {
+              toastr.warning('未找到需要更新的文件或版本已是最新。');
+          }
+      } catch (error: any) {
+          toastr.error(`更新过程中发生错误: ${error.message}`);
+          btn.prop('disabled', false).text('立即更新');
+      }
+    });
+  }
 }
 
 /**

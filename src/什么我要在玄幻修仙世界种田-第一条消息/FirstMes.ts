@@ -740,18 +740,20 @@ async function initializeVersionChecker() {
   const updateInfo = await checkForUpdates();
 
   if (updateInfo) {
+    // 始终为版本区域绑定点击事件
+    $versionChecker.on('click', () => {
+      if (updateInfo.changelogHtml) {
+        showChangelogModal(updateInfo.changelogHtml, updateInfo.hasUpdate);
+      } else {
+        toastr.warning('无法获取更新日志。');
+      }
+    });
+
     if (updateInfo.hasUpdate) {
       $versionChecker
-        .html(`<i class="fas fa-arrow-up text-green-400 mr-1"></i><span class="text-green-400 hover:underline">发现新版本 (${updateInfo.remoteVersion})</span>`)
-        .on('click', () => {
-          if (updateInfo.changelogHtml) {
-            showChangelogModal(updateInfo.changelogHtml);
-          } else {
-            toastr.warning('无法获取更新日志。');
-          }
-        });
+        .html(`<i class="fas fa-arrow-up text-green-400 mr-1"></i><span class="text-green-400 hover:underline">发现新版本 (${updateInfo.remoteVersion})</span>`);
     } else {
-      $versionChecker.html(`<i class="fas fa-check-circle text-gray-500 mr-1"></i><span>已是最新版本</span>`);
+      $versionChecker.html(`<i class="fas fa-check-circle text-gray-500 mr-1"></i><span class="hover:underline">已是最新版本</span>`);
     }
   } else {
     $versionChecker.html(`<i class="fas fa-exclamation-triangle text-red-500 mr-1"></i><span class="text-red-500">检查更新失败</span>`);

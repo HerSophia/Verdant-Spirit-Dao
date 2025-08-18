@@ -1899,19 +1899,24 @@ async function initVersionChecker() {
 
   const updateInfo = await checkForUpdates();
 
-  if (updateInfo?.hasUpdate) {
-    // Add a small notification dot
-    $versionBtn.append('<span class="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-500"></span>');
-  }
-
-  $versionBtn.on('click', async () => {
-    const info = await checkForUpdates();
-    if (info?.hasUpdate && info.changelogHtml) {
-      showChangelogModal(info.changelogHtml);
-    } else if (info) {
-      toastr.success(`你当前使用的是最新版本 (${info.remoteVersion})。`, '已是最新');
+  if (updateInfo) {
+    if (updateInfo.hasUpdate) {
+      // Add a small notification dot
+      $versionBtn.append('<span class="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-500"></span>');
     }
-  });
+
+    $versionBtn.on('click', () => {
+      if (updateInfo.changelogHtml) {
+        showChangelogModal(updateInfo.changelogHtml, updateInfo.hasUpdate);
+      } else {
+        toastr.warning('无法获取更新日志。');
+      }
+    });
+  } else {
+    $versionBtn.on('click', () => {
+        toastr.error('检查更新失败，无法显示日志。');
+    });
+  }
 }
 
 $(() => {
