@@ -1,0 +1,398 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《什么？我要在玄幻修仙世界种田》 - 状态栏</title>
+  <!-- 引入Font Awesome图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="p-4 sm:p-6 md:p-8 theme-transition">
+
+  <!-- 右上角全局控制器 -->
+  <div class="global-controls">
+    <!-- 图鉴管理按钮 -->
+    <button id="manage-pokedex-btn" class="control-btn" title="图鉴管理">
+      <i class="fas fa-book-open"></i>
+    </button>
+
+
+    <!-- 主题切换下拉菜单 -->
+    <div class="theme-switcher-dropdown">
+      <button id="theme-dropdown-btn" class="control-btn" title="切换主题">
+        <i class="fas fa-palette"></i>
+      </button>
+      <div id="theme-options" class="dropdown-content hidden">
+        <button data-theme="night" class="theme-btn"><i class="fas fa-moon mr-2"></i> 夜晚</button>
+        <button data-theme="day" class="theme-btn"><i class="fas fa-sun mr-2"></i> 白天</button>
+        <button data-theme="jade" class="theme-btn"><i class="fas fa-leaf mr-2"></i> 翠玉</button>
+        <button data-theme="classic" class="theme-btn"><i class="fas fa-scroll mr-2"></i> 古典</button>
+      </div>
+    </div>
+
+    <!-- 版本信息按钮 -->
+    <button id="version-info-btn" class="control-btn" title="版本信息">
+      <i class="fas fa-code-branch"></i>
+    </button>
+  </div>
+
+  <div class="max-w-4xl mx-auto space-y-6">
+
+    <!-- 整个状态栏容器 -->
+    <div class="bg-main rounded-2xl border border-dim p-4 sm:p-6 shadow-2xl theme-transition">
+      <div class="inner-box">
+        <!-- 头部信息 -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 pb-4 border-b border-dim theme-transition">
+          <h2 id="status-bar-title" class="text-2xl font-bold text-accent mb-2 sm:mb-0">
+            加载中...
+          </h2>
+          <div class="text-sm text-secondary space-y-1 sm:space-y-0 sm:space-x-4 sm:flex theme-transition">
+            <span class="flex items-center"><span class="emoji mr-2"></span><span id="time-display"></span></span>
+            <span class="flex items-center"><span class="emoji mr-2"></span><span id="location-display"></span></span>
+          </div>
+        </div>
+
+        <!-- 可折叠的状态总览区域 -->
+        <details class="group" open>
+          <summary class="font-bold text-lg cursor-pointer hover:text-accent transition-colors theme-transition flex justify-between items-center">
+            <span class="flex items-center"><i class="fas fa-users mr-2"></i>状态总览</span>
+            <i class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+          </summary>
+          <div id="characters-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 overflow-hidden transition-all duration-500 ease-in-out">
+            <!-- JS动态填充角色卡片 -->
+          </div>
+        </details>
+
+        <!-- 分隔线 -->
+        <hr class="my-6 border-t border-dim theme-transition">
+
+        <!-- 可折叠的庇护所区域 -->
+        <details class="group">
+          <summary class="font-bold text-lg cursor-pointer hover:text-accent transition-colors theme-transition flex justify-between items-center">
+            <span class="flex items-center"><i class="fas fa-home mr-2"></i>庇护所</span>
+            <i class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+          </summary>
+          <div id="shelter-container" class="mt-4 overflow-hidden transition-all duration-500 ease-in-out">
+            <!-- JS动态填充庇护所信息 -->
+          </div>
+        </details>
+
+        <!-- 分隔线 -->
+        <hr class="my-6 border-t border-dim theme-transition">
+
+        <!-- 可折叠的妖兽图鉴区域 -->
+        <details class="group">
+          <summary class="font-bold text-lg cursor-pointer hover:text-accent transition-colors theme-transition flex justify-between items-center">
+            <span class="flex items-center"><i class="fas fa-paw mr-2"></i>妖兽图鉴</span>
+            <i class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+          </summary>
+          <div id="bestiary-container" class="mt-4 overflow-hidden transition-all duration-500 ease-in-out">
+            <!-- JS动态填充妖兽图鉴信息 -->
+          </div>
+        </details>
+
+        <!-- 分隔线 -->
+        <hr class="my-6 border-t border-dim theme-transition">
+
+        <!-- 可折叠的植物图鉴区域 -->
+        <details class="group">
+          <summary class="font-bold text-lg cursor-pointer hover:text-accent transition-colors theme-transition flex justify-between items-center">
+            <span class="flex items-center"><i class="fas fa-seedling mr-2"></i>植物图鉴</span>
+            <i class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+          </summary>
+          <div id="herbology-container" class="mt-4 overflow-hidden transition-all duration-500 ease-in-out">
+            <!-- JS动态填充植物图鉴信息 -->
+          </div>
+        </details>
+
+        <!-- 分隔线 -->
+        <hr class="my-6 border-t border-dim theme-transition">
+
+        <!-- 可折叠的物品图鉴区域 -->
+        <details class="group">
+          <summary class="font-bold text-lg cursor-pointer hover:text-accent transition-colors theme-transition flex justify-between items-center">
+            <span class="flex items-center"><i class="fas fa-box-open mr-2"></i>物品图鉴</span>
+            <i class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+          </summary>
+          <div id="inventory-container" class="mt-4 overflow-hidden transition-all duration-500 ease-in-out">
+            <!-- JS动态填充物品图鉴信息 -->
+          </div>
+        </details>
+
+        <!-- 分隔线 -->
+        <hr class="my-6 border-t border-dim theme-transition">
+
+        <!-- 可折叠的系统区域 -->
+        <details class="group">
+          <summary class="font-bold text-lg cursor-pointer hover:text-accent transition-colors theme-transition flex justify-between items-center">
+            <span class="flex items-center"><i class="fas fa-cogs mr-2"></i>系统</span>
+            <i class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+          </summary>
+          <div id="system-container" class="mt-4 overflow-hidden transition-all duration-500 ease-in-out">
+            <!-- JS动态填充系统信息 -->
+          </div>
+        </details>
+
+        <!-- 分隔线 -->
+        <hr class="my-6 border-t border-dim theme-transition">
+
+        <!-- 行动选项 -->
+        <div>
+          <h3 class="font-bold text-lg mb-3 flex items-center">
+            <i class="fas fa-tasks mr-2"></i><span id="action-owner" class="text-accent"><!-- JS填充 --></span><span>的行动选项</span>
+          </h3>
+
+          <ul id="options-list" class="space-y-3 cursor-pointer">
+            <!-- JS动态填充选项列表 -->
+          </ul>
+
+          <!-- 自定义行动输入对话框 (将被JS移动) -->
+          <div id="custom-action-modal" class="hidden">
+            <div class="bg-main rounded-lg shadow-xl p-4 border border-dim">
+              <h4 class="font-bold text-md mb-3 text-accent flex items-center"><i class="fas fa-pen-nib mr-2"></i>输入你的行动</h4>
+              <textarea id="custom-action-input" class="w-full bg-secondary rounded border border-dim p-2 text-primary focus:ring-2 focus:ring-accent focus:outline-none theme-transition" rows="3" placeholder="你想做什么..."></textarea>
+              <div class="flex justify-end space-x-3 mt-3">
+                <button id="cancel-action-btn" class="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700 transition-colors theme-transition text-sm">取消</button>
+                <button id="confirm-action-btn" class="px-4 py-2 rounded bg-accent hover:bg-accent-hover transition-colors theme-transition text-white text-sm">确认行动</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 详情展示模态框 -->
+  <div id="details-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+      <h3 id="modal-title" class="modal-title">详情</h3>
+      <div id="modal-body" class="modal-body">
+        <!-- JS动态填充内容 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 图鉴管理模态框 -->
+  <div id="pokedex-manager-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button id="pokedex-manager-close-btn" class="modal-close-btn">&times;</button>
+      <h3 class="modal-title">
+        <span>图鉴管理</span>
+        <button id="pokedex-help-btn" class="help-btn" title="帮助">
+          <i class="fas fa-question"></i>
+        </button>
+      </h3>
+      <div class="modal-body">
+        <!-- 帮助信息容器 -->
+        <div id="pokedex-help-content" class="hidden p-3 mb-4 text-xs rounded-lg bg-secondary/50 text-secondary border border-dim">
+          <p class="font-bold mb-2 text-primary/80">图鉴管理功能说明:</p>
+          <ul class="list-disc list-inside space-y-1">
+            <li><b>图鉴总览:</b> 查看、编辑或删除已收录的所有图鉴条目。勾选条目后，点击下方的“注入选中项”按钮，可以将这些信息添加到当前楼层的变量中，让AI在下一次回应时“知道”这些内容。</li>
+            <li><b>添加条目:</b> 通过表单或JSON模式，手动向你的全局图鉴数据库中添加新的条目。</li>
+            <li><b>待收录条目:</b> 这里会自动列出当前楼层新出现的、但尚未被收录到全局图鉴的条目，方便你一键收录。</li>
+            <li><b>远程同步:</b> 与社区服务器进行数据交换，可以分享你独有的条目，也可以从社区获取他人分享的内容来丰富你的图鉴。</li>
+          </ul>
+        </div>
+        <!-- 主功能切换Tabs -->
+        <div class="flex border-b border-dim mb-4">
+          <button data-tab="view" class="main-tab-btn active">图鉴总览</button>
+          <button data-tab="add" class="main-tab-btn">添加条目</button>
+        </div>
+
+        <!-- 查看 & 注入 Tab -->
+        <div id="pokedex-view-tab" class="main-tab-content">
+          <!-- New Discoveries Section -->
+          <div id="new-discoveries-section" class="mb-4">
+            <h4 class="font-bold text-lg mb-2 text-accent flex justify-between items-center">
+              <span><i class="fas fa-lightbulb mr-2"></i>待收录条目</span>
+              <button id="approve-discoveries-btn" class="btn-secondary text-xs py-1 px-2">
+                <i class="fas fa-check-double mr-1"></i>一键收录选中项
+              </button>
+            </h4>
+            <div id="new-discoveries-list" class="max-h-40 overflow-y-auto pr-2 border border-dim rounded-lg p-2 bg-secondary/30">
+              <p class="text-center text-secondary p-4 text-sm">正在检查新发现...</p>
+            </div>
+          </div>
+          <hr class="my-4 border-t border-dim theme-transition">
+          <!-- 
+            JS动态生成条目示例:
+            <li class="p-2 rounded-lg bg-secondary/50 flex justify-between items-center">
+              <label class="flex items-center cursor-pointer flex-grow mr-4">
+                <input type="checkbox" class="mr-3" data-type="妖兽" data-name="示例妖兽">
+                <span class="truncate" title="示例妖兽">示例妖兽</span>
+              </label>
+              <div class="space-x-2 flex-shrink-0">
+                <button class="pokedex-edit-btn text-sm text-accent hover:text-accent-hover" data-type="妖兽" data-name="示例妖兽" title="编辑"><i class="fas fa-pencil-alt"></i></button>
+                <button class="pokedex-delete-btn text-sm text-red-500 hover:text-red-400" data-type="妖兽" data-name="示例妖兽" title="删除"><i class="fas fa-trash"></i></button>
+              </div>
+            </li> 
+          -->
+          <div id="existing-pokedex-list">
+            <p class="text-center text-secondary p-4">正在加载图鉴...</p>
+          </div>
+          <hr class="my-4 border-t border-dim theme-transition">
+          <div id="achievements-pokedex-list">
+            <!-- JS将在此处填充成就的 <details> 块 -->
+          </div>
+        </div>
+
+        <!-- 添加新条目 Tab -->
+        <div id="pokedex-add-tab" class="main-tab-content hidden">
+          <!-- 模式切换Tabs -->
+          <div class="flex border-b border-dim mb-4">
+            <button data-mode="form" class="tab-btn active">表单模式</button>
+            <button data-mode="json" class="tab-btn">JSON模式</button>
+          </div>
+
+          <!-- 表单模式内容 -->
+          <div id="form-mode-content" class="tab-content">
+            <div class="mb-4">
+              <label class="block mb-2 text-sm font-medium">图鉴类型:</label>
+              <div class="flex space-x-4">
+                <label class="flex items-center">
+                  <input type="radio" name="entryType" value="妖兽" class="mr-2" checked> 妖兽
+                </label>
+                <label class="flex items-center">
+                  <input type="radio" name="entryType" value="植物" class="mr-2"> 植物
+                </label>
+                <label class="flex items-center">
+                  <input type="radio" name="entryType" value="物品" class="mr-2"> 物品
+                </label>
+                <label class="flex items-center">
+                  <input type="radio" name="entryType" value="成就" class="mr-2"> 成就
+                </label>
+              </div>
+            </div>
+            <div id="form-fields-container" class="space-y-3 max-h-60 overflow-y-auto pr-2">
+              <!-- JS will populate this with key-value input fields -->
+            </div>
+            <div class="mt-3">
+              <button id="add-field-btn" class="text-sm text-accent hover:text-accent-hover transition-colors p-1 rounded hover:bg-secondary">
+                <i class="fas fa-plus mr-1"></i>添加字段
+              </button>
+            </div>
+          </div>
+
+          <!-- JSON模式内容 -->
+          <div id="json-mode-content" class="tab-content hidden">
+            <div class="mb-4">
+              <label class="block mb-2 text-sm font-medium">图鉴类型 (将应用于所有条目):</label>
+              <div class="flex space-x-4">
+                <label class="flex items-center">
+                  <input type="radio" name="jsonEntryType" value="妖兽" class="mr-2" checked> 妖兽
+                </label>
+                <label class="flex items-center">
+                  <input type="radio" name="jsonEntryType" value="植物" class="mr-2"> 植物
+                </label>
+                <label class="flex items-center">
+                  <input type="radio" name="jsonEntryType" value="物品" class="mr-2"> 物品
+                </label>
+                <label class="flex items-center">
+                  <input type="radio" name="jsonEntryType" value="成就" class="mr-2"> 成就
+                </label>
+              </div>
+            </div>
+            <div>
+              <label for="json-input" class="block mb-2 text-sm font-medium">JSON数据:</label>
+              <textarea id="json-input" class="w-full bg-secondary rounded border border-dim p-2 text-primary focus:ring-2 focus:ring-accent focus:outline-none theme-transition font-mono" rows="8" placeholder='[&#10;  { "名称": "xxx", "等级": "xxx" },&#10;  { "名称": "yyy", "习性": "yyy" }&#10;]'></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end mt-4 pt-4 border-t border-dim">
+        <button id="remote-sync-btn" class="btn-secondary mr-auto">
+          <i class="fas fa-cloud-upload-alt mr-2"></i>远程同步
+        </button>
+        <button id="inject-pokedex-btn" class="btn-primary">
+          <i class="fas fa-sign-in-alt mr-2"></i>注入选中项
+        </button>
+        <!-- 
+          “确认添加” / “确认更新”按钮。
+          该按钮在“添加新条目”标签页下显示。
+          JS会根据是新建条目还是编辑条目，动态修改其文本。
+        -->
+        <button id="submit-entry-btn" class="btn-primary hidden">
+          <i class="fas fa-plus mr-2"></i>确认添加
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 远程同步模态框 -->
+  <div id="remote-sync-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button id="remote-sync-close-btn" class="modal-close-btn">&times;</button>
+      <h3 class="modal-title">远程同步</h3>
+      <div class="modal-body">
+        <div class="p-2 mb-4 text-xs text-center rounded-lg bg-secondary/50 text-secondary">
+          <i class="fas fa-info-circle mr-1"></i>
+          分享功能旨在共建一个丰富的图鉴数据库。请确保您分享的内容准确、无害。
+        </div>
+        <!-- Tabs for Submit/Fetch -->
+        <div class="flex border-b border-dim mb-4">
+          <button data-tab="submit" class="main-tab-btn active">分享至社区</button>
+          <button data-tab="fetch" class="main-tab-btn">从社区获取</button>
+        </div>
+
+        <!-- Submit Tab -->
+        <div id="remote-submit-tab" class="main-tab-content">
+          <p class="text-sm text-secondary mb-2">以下是您本地独有、尚未分享的条目。请选择要分享到社区的内容：</p>
+          <div class="mb-2">
+            <label for="provider-name-input" class="block mb-1 text-xs font-medium text-secondary">贡献者署名 (可选):</label>
+            <input type="text" id="provider-name-input" class="w-full bg-secondary rounded border border-dim p-1.5 text-sm text-primary focus:ring-2 focus:ring-accent focus:outline-none theme-transition" placeholder="留下你的大名">
+          </div>
+          <div id="local-diff-list" class="max-h-60 overflow-y-auto pr-2 border border-dim rounded-lg p-2 bg-secondary/30">
+            <p class="text-center text-secondary p-4">正在计算差异...</p>
+          </div>
+        </div>
+
+        <!-- Fetch Tab -->
+        <div id="remote-fetch-tab" class="main-tab-content hidden">
+          <p class="text-sm text-secondary mb-2">以下是社区拥有、但您本地没有的条目。请选择要获取的内容：</p>
+          <div id="remote-diff-list" class="max-h-60 overflow-y-auto pr-2 border border-dim rounded-lg p-2 bg-secondary/30">
+            <p class="text-center text-secondary p-4">请先点击下方按钮从社区获取列表。</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-between items-center mt-4 pt-4 border-t border-dim">
+        <!-- This button will be shown/hidden by JS -->
+        <button id="fetch-from-remote-btn" class="btn-secondary hidden">
+          <i class="fas fa-cloud-download-alt mr-2"></i>获取社区列表
+        </button>
+        
+        <!-- These containers will be toggled by JS -->
+        <div id="submit-to-remote-controls">
+          <button id="submit-to-remote-btn" class="btn-primary">
+            <i class="fas fa-paper-plane mr-2"></i>分享选中项
+          </button>
+        </div>
+        <div id="import-from-remote-controls" class="hidden">
+          <button id="import-from-remote-btn" class="btn-primary">
+            <i class="fas fa-download mr-2"></i>导入选中项
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 成就奖励模态框 -->
+  <div id="rewards-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button id="rewards-modal-close-btn" class="modal-close-btn">&times;</button>
+      <div class="flex justify-between items-center mb-4 pb-2 border-b border-dim">
+        <h3 class="modal-title" style="border-bottom: none; margin-bottom: 0;">兑换奖励</h3>
+        <button id="refresh-rewards-btn" class="text-sm text-accent hover:text-accent-hover transition-colors p-1 rounded hover:bg-secondary" title="刷新奖励列表">
+          <i class="fas fa-sync-alt"></i> 刷新
+        </button>
+      </div>
+      <div id="rewards-modal-body" class="modal-body">
+        <!-- JS动态填充奖励内容 -->
+      </div>
+      <p class="text-xs text-secondary mt-4 text-center">每日仅可刷新一次，请谨慎选择。</p>
+    </div>
+  </div>
+
+</body>

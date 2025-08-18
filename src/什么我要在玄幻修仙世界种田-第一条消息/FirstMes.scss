@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+
+body {
+  font-family: 'Inter', 'Noto Serif SC', serif;
+  background-color: #111827;
+  /* 深灰蓝背景 */
+  color: #E5E7EB;
+  /* 浅灰色文字 */
+}
+
+.prose-custom h1,
+.prose-custom h2,
+.prose-custom h3 {
+  font-family: 'Noto Serif SC', serif;
+  color: #F9FAFB;
+  /* 白色标题 */
+  border-left: 4px solid #3B82F6;
+  /* 蓝色左边框 */
+  padding-left: 1rem;
+}
+
+.card {
+  background-color: rgba(30, 41, 59, 0.5);
+  /* 半透明深蓝灰色背景 */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(55, 65, 81, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  border-color: #3B82F6;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05);
+}
+
+.tag {
+  background-color: #374151;
+  /* 深灰色标签 */
+  color: #D1D5DB;
+  /* 灰色文字 */
+}
+
+.world-bg {
+  background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2071&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.world-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, #111827, rgba(17, 24, 39, 0.7));
+}
+
+.char-bg {
+  background-image: url('https://images.unsplash.com/photo-1544716278-e513176f20b5?q=80&w=1974&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.char-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, #111827, rgba(17, 24, 39, 0.7));
+}
+
+.tab-button {
+  transition: all 0.3s ease;
+}
+
+.tab-button.active {
+  background-color: #3B82F6;
+  color: #F9FAFB;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .prose-custom h1,
+  .prose-custom h2,
+  .prose-custom h3 {
+    padding-left: 0.75rem;
+    border-left-width: 3px;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .tab-button {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .tab-button .fas {
+    margin-right: 0.25rem;
+  }
+}
+
+/* Collapsible sections */
+.collapsible-section summary {
+  position: relative;
+  padding-right: 2rem; /* Space for the icon */
+}
+
+.collapsible-section summary::after {
+  content: '\f078'; /* Font Awesome chevron-down */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.collapsible-section[open] > summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* On mobile, collapse sections by default */
+@media (max-width: 768px) {
+  .collapsible-section {
+    border-bottom: 1px solid rgba(55, 65, 81, 0.5);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  .collapsible-section:not([open]) {
+     margin-bottom: 0.5rem;
+     padding-bottom: 0.5rem;
+  }
+  .collapsible-section[open] {
+    padding-bottom: 1.5rem;
+  }
+  .collapsible-section:last-of-type {
+    border-bottom: none;
+  }
+  .collapsible-section > summary {
+    margin-bottom: 0;
+  }
+  .collapsible-section:not([open]) > *:not(summary) {
+      display: none;
+  }
+}
+
+/* Custom Scrollbar */
+#inventory-items-container::-webkit-scrollbar,
+#bag-items-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+#inventory-items-container::-webkit-scrollbar-track,
+#bag-items-container::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 10px;
+}
+
+#inventory-items-container::-webkit-scrollbar-thumb,
+#bag-items-container::-webkit-scrollbar-thumb {
+  background-color: #3B82F6;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+#inventory-items-container::-webkit-scrollbar-thumb:hover,
+#bag-items-container::-webkit-scrollbar-thumb:hover {
+  background-color: #2563EB;
+}

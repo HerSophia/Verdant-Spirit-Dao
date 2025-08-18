@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《什么？我要在玄幻修仙世界种田》 - 状态栏 (Test)</title>
+  <!-- 引入Font Awesome图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- 引入toastr的CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <style>
+    /* 自定义字体和基础样式 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Noto Serif SC', serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    /* 主题色变量定义 - Night Mode (默认) */
+    :root {
+      --bg-primary: #1a1a1a;
+      --bg-secondary: #2a2a2a;
+      --bg-card: #222222;
+      --text-primary: #e5e7eb;
+      /* gray-200 */
+      --text-secondary: #9ca3af;
+      /* gray-400 */
+      --border-color: #4b5563;
+      /* gray-600 */
+      --accent-color: #818cf8;
+      /* indigo-400 */
+      --accent-color-hover: #6366f1;
+      /* indigo-500 */
+    }
+
+    /* Day Mode 主题 */
+    body.day-mode {
+      --bg-primary: #f3f4f6;
+      /* gray-100 */
+      --bg-secondary: #e5e7eb;
+      /* gray-200 */
+      --bg-card: #ffffff;
+      --text-primary: #1f2937;
+      /* gray-800 */
+      --text-secondary: #4b5563;
+      /* gray-600 */
+      --border-color: #d1d5db;
+      /* gray-300 */
+    }
+
+    /* Jade Mode 主题 */
+    body.jade-mode {
+      --bg-primary: #f0fdf4;
+      /* green-50 */
+      --bg-secondary: #dcfce7;
+      /* green-100 */
+      --bg-card: #ffffff;
+      --text-primary: #14532d;
+      /* green-900 */
+      --text-secondary: #166534;
+      /* green-800 */
+      --border-color: #86efac;
+      /* green-300 */
+      --accent-color: #22c55e;
+      /* green-500 */
+      --accent-color-hover: #16a34a;
+      /* green-600 */
+    }
+
+    /* Classic Mode (羊皮卷) 主题 */
+    body.classic-mode {
+      background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+      --bg-primary: #fdf6e3;
+      --bg-secondary: #f5eeda;
+      --bg-card: rgba(245, 238, 218, 0.8);
+      --text-primary: #583e26;
+      --text-secondary: #6e553c;
+      --border-color: #c9bda4;
+      --accent-color: #b58900;
+      --accent-color-hover: #856703;
+    }
+
+    /* 通用样式 */
+    .theme-transition {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card-hover {
+      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    }
+
+    .bg-main {
+      background-color: var(--bg-card);
+    }
+
+    .text-accent {
+      color: var(--accent-color);
+    }
+
+    .border-dim {
+      border-color: color-mix(in srgb, var(--border-color) 30%, transparent);
+    }
+
+    .text-secondary {
+      color: var(--text-secondary);
+    }
+
+    details[open]>summary .group-open\:rotate-180 {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+
+<body class="p-4 sm:p-6 md:p-8 theme-transition">
+
+  <div class="max-w-4xl mx-auto space-y-6">
+
+    <!-- 主题切换控制器 -->
+    <div class="flex justify-center space-x-2 p-2 bg-main rounded-full shadow-lg">
+      <button data-theme="night" class="theme-btn w-10 h-10 rounded-full bg-gray-800 border-2 border-transparent hover:border-indigo-400 transition flex items-center justify-center text-white">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button data-theme="day" class="theme-btn w-10 h-10 rounded-full bg-gray-100 border-2 border-transparent hover:border-indigo-400 transition flex items-center justify-center text-gray-800">
+        <i class="fas fa-sun"></i>
+      </button>
+      <button data-theme="jade" class="theme-btn w-10 h-10 rounded-full bg-green-500 border-2 border-transparent hover:border-indigo-400 transition flex items-center justify-center text-white">
+        <i class="fas fa-leaf"></i>
+      </button>
+      <button data-theme="classic" class="theme-btn w-10 h-10 rounded-full bg-[#fdf6e3] border-2 border-transparent hover:border-indigo-400 transition flex items-center justify-center text-[#583e26]">
+        <i class="fas fa-scroll"></i>
+      </button>
+    </div>
+
+    <!-- 整个状态栏容器 -->
+    <div class="bg-main rounded-2xl border border-dim p-4 sm:p-6 shadow-2xl theme-transition">
+
+      <!-- 头部信息 -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 pb-4 border-b border-dim theme-transition">
+        <h2 id="status-bar-title" class="text-2xl font-bold text-accent mb-2 sm:mb-0">
+          加载中...
+        </h2>
+        <div class="text-sm text-secondary space-y-1 sm:space-y-0 sm:space-x-4 sm:flex theme-transition">
+          <span class="flex items-center"><span class="emoji mr-2"></span><span id="time-display"></span></span>
+          <span class="flex items-center"><span class="emoji mr-2"></span><span id="location-display"></span></span>
+        </div>
+      </div>
+
+      <!-- 可折叠的角色状态区域 -->
+      <details class="group" open>
+        <summary class="font-bold text-lg cursor-pointer hover:text-accent transition-colors theme-transition flex justify-between items-center">
+          <span class="flex items-center"><i class="fas fa-users mr-2"></i>角色状态总览</span>
+          <i class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+        </summary>
+        <div id="characters-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 overflow-hidden transition-all duration-500 ease-in-out">
+          <!-- JS动态填充角色卡片 -->
+        </div>
+      </details>
+
+      <!-- 分隔线 -->
+      <hr class="my-6 border-t border-dim theme-transition">
+
+      <!-- 行动选项 -->
+      <div>
+        <h3 class="font-bold text-lg mb-3 flex items-center">
+          <i class="fas fa-tasks mr-2"></i><span id="action-owner" class="text-accent"><!-- JS填充 --></span><span>的行动选项</span>
+        </h3>
+        <ul id="options-list" class="space-y-3 cursor-pointer">
+          <!-- JS动态填充选项列表 -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 引入依赖库 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+  <script type="module">
+    // Mock Data
+    const mockJsonData = {
+      "状态总览": {
+        "🗓️ 日期与时间": "穿越后第一日 · 清晨",
+        "🏞️ 地点与环境": "洄潮屿 · 外围沙滩 · 临时庇护所",
+        "角色列表": [{
+          "👤 角色": {
+            "姓名": "萧栖雪",
+            "🧬 种族": "人类 (异界来客)",
+            "💼 职业": "前·植物学研究生 | 现·求生者",
+            "🎭 状态": {
+              "情绪": "警惕、好奇、对未来的迷茫与希望",
+              "身体": "健康 (初次引气入体，状态良好)"
+            },
+            "📈 等级": "炼气境一层",
+            "🎒 核心物品": ["📖 《长春诀》玉简", "🌱 《元初草木图鉴》残本", "⚫ 碳化的灵谷种子"]
+          }
+        }, {
+          "🏝️ 环境": {
+            "名称": "洄潮屿",
+            "🌀 特征": "洋流交汇、与世隔绝",
+            "⚠️ 危险等级": "未知 (极高)",
+            "🎁 机遇": ["拾荒: 洋流带来的漂流物", "耕种: 息壤灵田(待发现)"],
+            "🐾 原住民": ["礁岩拟蟹", "迷音鹊", "玉脊蜥"]
+          }
+        }],
+        "行动选项": {
+          "🧝‍♀️ 行动人": "萧栖雪",
+          "📜 可选行动": [
+            "1. 🌿 采集海星草，尝试制作第一份药膏。",
+            "2. 🔨 寻找坚硬的石块或金属片，制作一把石刀用于防身和处理材料。",
+            "3. 🗺️ 仔细研究《草木图鉴》，辨认更多可用植物。",
+            "4. 🛖 加固临时的礁石庇护所，应对可能的风雨和危险。",
+            "5. 🌊 再次前往海滩，进行新一轮的拾荒，寻找更多有用之物。"
+          ]
+        }
+      }
+    };
+
+    // Mock SillyTavern functions
+    const triggerSlash = (command) => {
+      console.log("Triggered Slash Command:", command);
+      toastr.info(`<b>Slash Command:</b><br>${command}`, "Mock Action");
+    };
+
+    const getChatMessages = () => {
+      return [{
+        message: "```json\n" + JSON.stringify(mockJsonData, null, 2) + "\n```"
+      }];
+    };
+
+
+    const triggerQuickReply = (text) => {
+      if (!text || ['…', '...'].includes(text.trim()) || text.trim().length === 0) return;
+      if (typeof triggerSlash === 'function') {
+        triggerSlash(`/send ${text}|/trigger`);
+      } else {
+        console.log('SillyTavern environment not detected. Would send:', text);
+      }
+    };
+
+    function initThemeToggle() {
+      const themeButtons = document.querySelectorAll('.theme-btn');
+      const bodyElement = document.body;
+      const savedTheme = localStorage.getItem('storyTheme') || 'night';
+
+      const switchToTheme = (theme) => {
+        bodyElement.classList.remove('day-mode', 'jade-mode', 'classic-mode');
+        if (theme !== 'night') {
+          bodyElement.classList.add(`${theme}-mode`);
+        }
+        themeButtons.forEach(btn => {
+          const btnTheme = btn.getAttribute('data-theme');
+          btn.classList.toggle('ring-2', btnTheme === theme);
+          btn.classList.toggle('ring-offset-2', btnTheme === theme);
+          btn.classList.toggle('ring-indigo-400', btnTheme === theme);
+        });
+      };
+
+      switchToTheme(savedTheme);
+
+      themeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const theme = button.getAttribute('data-theme');
+          if (theme) {
+            switchToTheme(theme);
+            localStorage.setItem('storyTheme', theme);
+          }
+        });
+      });
+    }
+
+    class StoryRenderer {
+      yamlData;
+      rawYamlContent;
+      rootNodeKey;
+      elements;
+      rawJsonContent;
+      jsonData;
+
+      constructor() {
+        this.yamlData = null;
+        this.rawYamlContent = "";
+        this.rootNodeKey = null;
+        this.elements = {
+          statusBarTitle: document.getElementById('status-bar-title'),
+          timeDisplay: document.getElementById('time-display'),
+          locationDisplay: document.getElementById('location-display'),
+          charactersContainer: document.getElementById('characters-container'),
+          actionOwner: document.getElementById('action-owner'),
+          optionsList: document.getElementById('options-list')
+        };
+      }
+
+      init() {
+        console.log('[StoryRenderer] Initializing...');
+        this.setLoadingState();
+        try {
+          this.rawJsonContent = this.getRawContentFromChatMessage();
+          console.log('[StoryRenderer] Raw JSON content loaded from chat message:', this.rawJsonContent);
+          console.log('Raw JSON data from message:', this.rawJsonContent);
+
+          if (!this.rawJsonContent) {
+            toastr.error('未能在最新消息中找到JSON数据。');
+            console.error('未能在最新消息中找到JSON数据:');
+          }
+
+          this.jsonData = JSON.parse(this.rawJsonContent);
+          if (!this.jsonData) toastr.error('JSON数据格式不正确');
+
+          this.findRootNodeKey();
+          this.renderAll();
+          toastr.success('状态栏已成功加载并渲染！');
+
+        } catch (error) {
+          console.error('JSON解析或渲染失败:', error);
+          this.handleParsingFailure(this.rawJsonContent, error);
+          toastr.warning('JSON解析失败，请检查格式。');
+        }
+      }
+
+      getRawContentFromChatMessage() {
+        try {
+          const lastMessage = getChatMessages(-1)[0];
+          if (!lastMessage || !lastMessage.message) return '';
+
+          let content = lastMessage.message;
+
+          // 移除可能存在的 <q> 标签
+          content = content.replace(/<q>/g, '').replace(/<\/q>/g, '');
+
+          const jsonRegex = /```json\s*([\s\S]*?)\s*```/;
+          const match = content.match(jsonRegex);
+
+          if (match && match[1]) {
+            return match[1].trim();
+          }
+
+          const firstBracket = content.indexOf('{');
+          const lastBracket = content.lastIndexOf('}');
+          if (firstBracket !== -1 && lastBracket > firstBracket) {
+            return content.substring(firstBracket, lastBracket + 1);
+          }
+
+          return '';
+
+        } catch (e) {
+          console.error("获取聊天消息失败:", e);
+          return '';
+        }
+      }
+
+      setLoadingState() {
+        if (this.elements.charactersContainer) {
+          this.elements.charactersContainer.innerHTML = this.createSpinner();
+        }
+        if (this.elements.optionsList) {
+          this.elements.optionsList.innerHTML = `<li>${this.createSpinner()}</li>`;
+        }
+      }
+
+      createSpinner() {
+        return `<div class="flex justify-center items-center p-4"><div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-400"></div></div>`;
+      }
+
+      findRootNodeKey() {
+        this.rootNodeKey = Object.keys(this.jsonData)[0];
+        if (!this.rootNodeKey) toastr.error('未找到根节点');
+        if (this.elements.statusBarTitle) {
+          this.elements.statusBarTitle.textContent = this.formatNodeName(this.rootNodeKey);
+        }
+      }
+
+      findFieldByKeywords(data, keywords) {
+        if (!data || typeof data !== 'object') return null;
+        const fields = Object.keys(data);
+        for (const field of fields) {
+          for (const keyword of keywords) {
+            if (field.toLowerCase().includes(keyword.toLowerCase())) {
+              return field;
+            }
+          }
+        }
+        return null;
+      }
+
+      renderAll() {
+        if (!this.rootNodeKey) return;
+        const rootData = this.jsonData[this.rootNodeKey];
+        this.renderHeaderInfo(rootData);
+        this.renderCharacters(rootData);
+        this.renderActionOptions(rootData);
+      }
+
+      renderHeaderInfo(data) {
+        const dateTimeField = this.findFieldByKeywords(data, ['日期', '时间']);
+        const locationField = this.findFieldByKeywords(data, ['地点', '环境']);
+
+        const timeDisplayParent = this.elements.timeDisplay?.parentNode;
+        const locationDisplayParent = this.elements.locationDisplay?.parentNode;
+
+        if (dateTimeField && this.elements.timeDisplay && timeDisplayParent) {
+          this.elements.timeDisplay.textContent = this.formatNodeName(data[dateTimeField], true);
+          const emojiEl = timeDisplayParent.querySelector('.emoji');
+          if (emojiEl) emojiEl.textContent = this.extractEmojis(data[dateTimeField])[0] || '🗓️';
+        }
+        if (locationField && this.elements.locationDisplay && locationDisplayParent) {
+          this.elements.locationDisplay.textContent = this.formatNodeName(data[locationField], true);
+          const emojiEl = locationDisplayParent.querySelector('.emoji');
+          if (emojiEl) emojiEl.textContent = this.extractEmojis(data[locationField])[0] || '🏞️';
+        }
+      }
+
+      renderCharacters(data) {
+        const charListKey = this.findFieldByKeywords(data, ['角色', '列表', '人物']);
+        if (this.elements.charactersContainer) {
+          this.elements.charactersContainer.innerHTML = '';
+          if (charListKey && Array.isArray(data[charListKey])) {
+            data[charListKey].forEach((charData) => {
+              const card = this.createCharacterCard(charData);
+              if (card) this.elements.charactersContainer.appendChild(card);
+            });
+          } else {
+            this.elements.charactersContainer.innerHTML = this.createEmptyState('没有角色数据');
+          }
+        }
+      }
+
+      createCharacterCard(charData) {
+        const titleKey = Object.keys(charData)[0];
+        const attributes = charData[titleKey];
+        if (!titleKey || !attributes) return null;
+
+        const card = document.createElement('div');
+        card.className = 'bg-main rounded-xl border border-dim p-3.5 shadow-sm card-hover theme-transition';
+
+        const h3 = document.createElement('h3');
+        h3.className = 'font-bold text-lg mb-2 pb-1 border-b border-dim theme-transition';
+        h3.innerHTML = `${this.extractEmojis(titleKey)[0] || ''} ${this.formatNodeName(titleKey, true)}`;
+        card.appendChild(h3);
+
+        const list = document.createElement('ul');
+        list.className = 'space-y-2 text-sm';
+        card.appendChild(list);
+
+        if (typeof attributes === 'object' && attributes !== null && !Array.isArray(attributes)) {
+          Object.entries(attributes).forEach(([key, value]) => {
+            list.appendChild(this.createAttributeItem(key, value));
+          });
+        }
+        return card;
+      }
+
+      createAttributeItem(key, value) {
+        const item = document.createElement('li');
+        const emoji = this.extractEmojis(key)[0] || '🔸';
+        item.innerHTML = `<span class="font-medium text-accent">${emoji} ${this.formatNodeName(key, true)}:</span>`;
+
+        if (typeof value === 'object' && value !== null) {
+          const subList = document.createElement('ul');
+          subList.className = 'list-disc list-inside ml-4 mt-1 space-y-1 text-secondary theme-transition';
+
+          if (Array.isArray(value)) {
+            value.forEach(subValue => {
+              const subItem = document.createElement('li');
+              let text;
+              if (typeof subValue === 'object' && subValue !== null) {
+                const innerKey = Object.keys(subValue)[0];
+                if (innerKey) {
+                  text = `${this.formatNodeName(innerKey)}: ${this.formatNodeName(String(subValue[innerKey]))}`;
+                } else {
+                  text = '无效条目';
+                }
+              } else {
+                text = this.formatNodeName(String(subValue));
+              }
+              subItem.innerHTML = `${this.extractEmojis(text)[0] || '•'} ${this.formatNodeName(text, true)}`;
+              subList.appendChild(subItem);
+            });
+          } else {
+            Object.entries(value).forEach(([subKey, subValue]) => {
+              const subItem = document.createElement('li');
+              const text = `${this.formatNodeName(subKey)}: ${this.formatNodeName(String(subValue))}`;
+              subItem.innerHTML = `${this.extractEmojis(text)[0] || '•'} ${this.formatNodeName(text, true)}`;
+              subList.appendChild(subItem);
+            });
+          }
+          item.appendChild(subList);
+        } else {
+          item.innerHTML += ` ${this.formatNodeName(String(value))}`;
+        }
+        return item;
+      }
+
+      renderActionOptions(data) {
+        const actionKey = this.findFieldByKeywords(data, ['行动']);
+        if (this.elements.optionsList) {
+          this.elements.optionsList.innerHTML = '';
+          if (actionKey && data[actionKey]) {
+            const actionData = data[actionKey];
+            const ownerKey = this.findFieldByKeywords(actionData, ['行动人', '角色']);
+            const optionsKey = this.findFieldByKeywords(actionData, ['可选行动', '选项']);
+
+            if (ownerKey && this.elements.actionOwner) {
+              this.elements.actionOwner.textContent = this.formatNodeName(actionData[ownerKey]);
+            }
+            if (optionsKey && Array.isArray(actionData[optionsKey])) {
+              actionData[optionsKey].forEach((optionText) => {
+                const item = document.createElement('li');
+                item.className = 'pl-2 py-1 border-l-2 border-dim ml-1 hover:border-indigo-400/70 transition-colors theme-transition';
+                item.innerHTML = `${this.extractEmojis(optionText)[0] || '▶️'} ${this.formatNodeName(optionText, true)}`;
+                this.elements.optionsList.appendChild(item);
+              });
+            }
+          } else {
+            this.elements.optionsList.innerHTML = this.createEmptyState('没有可用行动');
+          }
+        }
+      }
+
+      createEmptyState(message) {
+        return `<li class="text-center py-4 text-secondary theme-transition"><i class="fas fa-info-circle mr-1"></i>${message}</li>`;
+      }
+
+      handleError(error) {
+        console.error('渲染错误:', error);
+        const errorHtml = `<div class="bg-red-900/20 border border-red-800/30 text-red-400 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">加载失败: </strong>
+            <span class="block sm:inline">${error.message}</span>
+        </div>`;
+        if (this.elements.charactersContainer) this.elements.charactersContainer.innerHTML = errorHtml;
+        if (this.elements.optionsList) this.elements.optionsList.innerHTML = `<li>${errorHtml}</li>`;
+        const actionOwnerParent = this.elements.actionOwner?.parentElement;
+        if (actionOwnerParent) actionOwnerParent.style.display = 'none';
+      }
+      handleParsingFailure(rawText, error) {
+        if (this.elements.statusBarTitle) this.elements.statusBarTitle.textContent = 'JSON解析失败';
+        const safeRawText = String(rawText || '');
+        const errorMessage = String(error?.message || error);
+        const errorHtml = `
+            <div class="bg-orange-800/20 border border-orange-700/30 text-orange-300 px-4 py-3 rounded-lg relative" role="alert">
+                <strong class="font-bold">解析失败:</strong>
+                <span class="block sm:inline">${errorMessage}</span>
+                <p class="mt-2 text-sm">已为您显示原始输出内容，请检查格式：</p>
+            </div>
+            <pre class="bg-gray-900/50 text-white p-4 rounded-lg mt-2 whitespace-pre-wrap text-xs leading-relaxed"><code>${safeRawText.replace(/</g, '<').replace(/>/g, '>')}</code></pre>
+        `;
+        if (this.elements.charactersContainer) {
+          this.elements.charactersContainer.innerHTML = errorHtml;
+          this.elements.charactersContainer.classList.remove('md:grid-cols-2');
+        }
+        if (this.elements.optionsList) this.elements.optionsList.innerHTML = '';
+        const actionOwnerParent = this.elements.actionOwner?.parentElement;
+        if (actionOwnerParent) actionOwnerParent.style.display = 'none';
+      }
+
+      extractEmojis(text) {
+        if (!_.isString(text)) {
+          return [];
+        }
+        const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+        return text.match(emojiRegex) || [];
+      }
+
+      formatNodeName(name, removeAllEmoji = false) {
+        if (!_.isString(name) && !_.isNumber(name)) {
+          return '';
+        }
+        let cleanName = _.toString(name);
+        cleanName = _.replace(cleanName, /^\d+\.\s*/, '');
+        if (removeAllEmoji) {
+          const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+          cleanName = _.replace(cleanName, emojiRegex, '');
+        }
+        return _.trim(cleanName);
+      }
+    }
+
+    $(() => {
+      initThemeToggle();
+      const storyRenderer = new StoryRenderer();
+      storyRenderer.init();
+
+      $('#options-list').on('click', (e) => {
+        const targetLi = $(e.target).closest('li');
+        if (targetLi.length) {
+          const optionText = targetLi.text().trim();
+          triggerQuickReply(optionText);
+          targetLi.css('background-color', 'rgba(157, 124, 245, 0.2)');
+          setTimeout(() => {
+            targetLi.css('background-color', '');
+          }, 300);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

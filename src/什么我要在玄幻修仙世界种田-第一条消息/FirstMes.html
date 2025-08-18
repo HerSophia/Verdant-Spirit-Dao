@@ -1,0 +1,343 @@
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex模型能力测试 - 互动小说开篇</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="antialiased">
+
+  <div class="container mx-auto px-4 py-12 max-w-7xl">
+
+    <!-- 标题区域 -->
+    <header class="text-center mb-12 md:mb-16 prose-custom">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">什么？我要在玄幻修仙世界种田？</h1>
+      <p class="mt-4 text-base md:text-lg text-gray-400">
+        版本: v0.3.1
+        <span id="version-checker" class="ml-2 text-sm cursor-pointer"></span>
+      </p>
+      <p class="mt-4 text-xs md:text-sm text-gray-400">作者：goddess_boreas</p>
+    </header>
+
+    <!-- Tab 切换按钮 -->
+    <div class="flex justify-center mb-8 space-x-2 md:space-x-4 bg-gray-800 rounded-lg p-2 max-w-md mx-auto">
+      <button data-tab="worldview"
+        class="tab-button flex-1 py-2 px-4 rounded-md text-sm md:text-base font-medium active"><i
+          class="fas fa-globe-asia mr-2"></i>世界观速览</button>
+      <button data-tab="character"
+        class="tab-button flex-1 py-2 px-4 rounded-md text-sm md:text-base font-medium"><i
+          class="fas fa-user-circle mr-2"></i>角色档案</button>
+      <button data-tab="custom-start"
+        class="tab-button flex-1 py-2 px-4 rounded-md text-sm md:text-base font-medium"><i
+          class="fas fa-dice mr-2"></i>自定义开局</button>
+    </div>
+
+    <!-- Tab 内容区域 -->
+    <main>
+      <!-- 世界观内容 -->
+      <div id="worldview" class="tab-content active">
+        <div class="relative rounded-xl overflow-hidden p-6 sm:p-8 md:p-12 world-bg">
+          <div class="relative z-10 prose-custom max-w-none">
+            <h2 class="text-2xl sm:text-3xl font-bold">元初界</h2>
+            <p class="text-gray-300">这是一个以“灵气”为万物本源与唯一修炼能量的玄幻修仙世界。大道至简，修行者专注于“道”与“法”的感悟，而非繁杂的等级突破。</p>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-10">
+              <!-- 境界设定 -->
+              <div class="card rounded-lg p-6">
+                <h3 class="font-bold text-xl mb-3 flex items-center"><i
+                    class="fas fa-layer-group text-blue-400 mr-3"></i>核心境界</h3>
+                <ul class="space-y-2 text-gray-400">
+                  <li><span class="font-semibold text-gray-200">淬体境:</span> 凡躯打磨，仙凡之隔。</li>
+                  <li><span class="font-semibold text-gray-200">炼气境:</span> 引气入体，初窥门径。</li>
+                  <li><span class="font-semibold text-gray-200">筑基境:</span> 铸就道基，神识初醒。</li>
+                  <li><span class="font-semibold text-gray-200">金丹境:</span> 丹成大道，御器飞行。</li>
+                  <li><span class="font-semibold text-gray-200">元婴境:</span> 婴变不灭，瞬移千里。</li>
+                  <li><span class="font-semibold text-gray-200">化神境:</span> 法则言随，神游太虚。</li>
+                </ul>
+              </div>
+              <!-- 职业体系 -->
+              <div class="card rounded-lg p-6">
+                <h3 class="font-bold text-xl mb-3 flex items-center"><i
+                    class="fas fa-briefcase text-green-400 mr-3"></i>多元职业</h3>
+                <div class="space-y-3">
+                  <div>
+                    <h4 class="font-semibold text-gray-200">战斗类</h4>
+                    <p class="text-gray-400 text-sm">剑修、法修、体修、魂修</p>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-200">辅佐类</h4>
+                    <p class="text-gray-400 text-sm">丹师、器师、阵师</p>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-200">奇门类</h4>
+                    <p class="text-gray-400 text-sm">符师、灵植师、御兽师</p>
+                  </div>
+                </div>
+              </div>
+              <!-- 开场舞台 -->
+              <div class="card rounded-lg p-6 md:col-span-2 lg:col-span-1">
+                <h3 class="font-bold text-xl mb-3 flex items-center"><i
+                    class="fas fa-map-marked-alt text-purple-400 mr-3"></i>开场舞台：洄潮屿</h3>
+                <p class="text-gray-400">位于无妄海东部，洋流交汇之地的隐秘洞天。表象平凡，内藏玄机。</p>
+                <ul class="mt-3 space-y-2 text-gray-400">
+                  <li><i class="fas fa-leaf text-green-500 mr-2"></i><b>息壤灵田:</b> 加速灵植生长，点化凡物。</li>
+                  <li><i class="fas fa-water text-cyan-500 mr-2"></i><b>洋流宝库:</b> 海滩随机刷新资源与遗物。</li>
+                  <li><i class="fas fa-skull-crossbones text-red-500 mr-2"></i><b>水下杀机:</b> 深海暗藏巨兽与上古遗迹。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 角色档案内容 -->
+      <div id="character" class="tab-content">
+        <div class="relative rounded-xl overflow-hidden p-6 sm:p-8 md:p-12 char-bg">
+          <div class="relative z-10 grid md:grid-cols-3 gap-6 md:gap-8">
+            <!-- 角色基础信息 -->
+            <div class="md:col-span-1 prose-custom">
+              <h2 class="text-2xl sm:text-3xl font-bold">角色档案</h2>
+              <div id="character-name-display" class="flex items-center mt-2">
+                <h3 class="text-3xl sm:text-4xl font-serif" style="color: #60A5FA;">萧栖雪</h3>
+                <button id="edit-name-button" class="ml-4 text-gray-400 hover:text-white transition"><i class="fas fa-pencil-alt"></i></button>
+              </div>
+              <div id="character-name-edit" class="hidden mt-2">
+                <input type="text" id="character-name-input" class="bg-gray-700 text-white text-2xl font-serif rounded px-2 py-1 w-full">
+                <div class="mt-2">
+                  <button id="confirm-name-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg text-sm">确认</button>
+                  <button id="cancel-name-button" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded-lg text-sm ml-2">取消</button>
+                </div>
+              </div>
+              <p class="text-gray-300">"一位来自异世界的农业学者，在这片充满灵气的土地上，开始了她的种田修仙之旅。"</p>
+              <div class="mt-6 space-y-4">
+                <div><i class="fas fa-id-card fa-fw mr-3 text-gray-400"></i><span class="font-semibold">身份:</span> 散修 /
+                  灵植师 (前世: 农业学生)</div>
+                <div><i class="fas fa-map-pin fa-fw mr-3 text-gray-400"></i><span class="font-semibold">阵营:</span> 中立 /
+                  秩序</div>
+                <div><i class="fas fa-user-circle fa-fw mr-3 text-gray-400"></i><span class="font-semibold">性格:</span>
+                  谨慎务实、聪慧坚韧、探索欲强</div>
+              </div>
+            </div>
+            <!-- 核心设定与物品 -->
+            <div class="md:col-span-2 space-y-6">
+              <!-- 核心优势 -->
+              <div class="card rounded-lg p-6">
+                <h3 class="font-bold text-xl mb-3 flex items-center"><i
+                    class="fas fa-star text-yellow-400 mr-3"></i>核心优势 (金手指)</h3>
+                <div class="grid sm:grid-cols-2 gap-4 text-gray-300">
+                  <div class="flex items-start"><i
+                      class="fas fa-check-circle text-green-500 mt-1 mr-2"></i><span><b>洄潮屿认可:</b>
+                      与岛屿生态系统共生，不受主动攻击。</span></div>
+                  <div class="flex items-start"><i
+                      class="fas fa-seedling text-lime-500 mt-1 mr-2"></i><span><b>息壤灵田:</b> 掌握顶级灵植培育基地，资源自给自足。</span>
+                  </div>
+                  <div class="flex items-start"><i
+                      class="fas fa-box-open text-cyan-500 mt-1 mr-2"></i><span><b>洋流漂流物:</b> 持续获取外部世界功法、材料的随机盲盒。</span>
+                  </div>
+                  <div class="flex items-start"><i class="fas fa-brain text-purple-500 mt-1 mr-2"></i><span><b>现代知识:</b>
+                      拥有系统科学理论，提供独特解题视角。</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 自定义开局内容 -->
+      <div id="custom-start" class="tab-content">
+        <div class="relative rounded-xl overflow-hidden p-6 sm:p-8 md:p-12 bg-gray-900">
+          <div class="relative z-10 prose-custom max-w-none">
+            <h2 class="text-2xl sm:text-3xl font-bold">天赋与家世</h2>
+            <p class="text-gray-300">你将有10点天赋点，自由分配在以下各项中，以决定你的开局。这将影响你的初始资源、功法、以及可能遇到的奇遇。</p>
+
+            <div class="mt-8 md:mt-10 space-y-8 md:space-y-12">
+              <!-- 开局时间 -->
+              <details class="collapsible-section" open>
+                <summary class="font-bold text-lg sm:text-xl mb-4 cursor-pointer">开局时间 (选择你的初始季节)</summary>
+                <div id="seasons-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                  <!-- 季节选项将由JS动态填充 -->
+                </div>
+              </details>
+
+              <!-- 海岛环境 -->
+              <details class="collapsible-section" open>
+                <summary class="font-bold text-lg sm:text-xl mb-4 cursor-pointer">海岛环境 (选择恶劣环境可获得<span class="text-yellow-400">额外点数</span>)</summary>
+                <div class="space-y-6 mt-4">
+                  <div>
+                    <h4 class="font-semibold text-gray-300 mb-2">息壤灵田</h4>
+                    <div id="farmland-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      <!-- 灵田选项将由JS动态填充 -->
+                    </div>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-300 mb-2">淡水资源</h4>
+                    <div id="water-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      <!-- 淡水选项将由JS动态填充 -->
+                    </div>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-300 mb-2">生物环境</h4>
+                    <div id="creature-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      <!-- 生物选项将由JS动态填充 -->
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- 海域环境 -->
+              <details class="collapsible-section" open>
+                <summary class="font-bold text-lg sm:text-xl mb-4 cursor-pointer">海域环境 (选择恶劣环境可获得<span class="text-yellow-400">额外点数</span>)</summary>
+                <div class="space-y-6 mt-4">
+                  <div>
+                    <h4 class="font-semibold text-gray-300 mb-2">海底状况</h4>
+                    <div id="seabed-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      <!-- 海底选项将由JS动态填充 -->
+                    </div>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-300 mb-2">风暴频率</h4>
+                    <div id="storm-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      <!-- 风暴选项将由JS动态填充 -->
+                    </div>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-300 mb-2">周边岛屿</h4>
+                    <div id="islands-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      <!-- 岛屿选项将由JS动态填充 -->
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- 穿越者心态 -->
+              <details class="collapsible-section" open>
+                <summary class="font-bold text-lg sm:text-xl mb-4 cursor-pointer">穿越者心态 (选择你的初始目标)</summary>
+                <div id="mindsets-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                  <!-- 心态选项将由JS动态填充 -->
+                </div>
+              </details>
+
+              <!-- 凡人根基 -->
+              <details class="collapsible-section" open>
+                <summary class="font-bold text-lg sm:text-xl mb-4 cursor-pointer">凡人根基</summary>
+                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                  <div class="card rounded-lg p-4 border border-green-700 bg-green-900/30">
+                      <span class="font-semibold text-green-300">固定背景：农学世家</span>
+                      <p class="text-xs text-gray-400 mt-1">你出身于农业世家，对植物的习性有天生的亲和力。</p>
+                  </div>
+                  <div id="traits-container" class="md:col-span-2">
+                    <!-- 可选特长将由JS动态填充 -->
+                  </div>
+                </div>
+              </details>
+
+              <!-- 属性分配 -->
+              <details class="collapsible-section" open>
+                <summary class="font-bold text-lg sm:text-xl mb-4 cursor-pointer">
+                  天赋分配 (剩余天赋点: <span id="points-talent-remaining" class="text-blue-400 font-bold">10</span> / <span class="text-gray-400">10</span>)
+                </summary>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-4">
+                  <!-- 根骨 -->
+                  <div class="card rounded-lg p-6">
+                    <label for="talent-gen-gu" class="font-semibold text-gray-200 flex items-center justify-between">
+                      <span><i class="fas fa-bone text-yellow-400 mr-2"></i>根骨</span>
+                      <span id="talent-gen-gu-value" class="text-lg font-bold text-blue-400">0</span>
+                    </label>
+                    <p class="text-sm text-gray-400 mt-1 mb-3">影响你的修炼速度与肉身强度。</p>
+                    <input id="talent-gen-gu" type="range" min="0" max="10" value="0" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer talent-slider">
+                  </div>
+                  <!-- 悟性 -->
+                  <div class="card rounded-lg p-6">
+                    <label for="talent-wu-xing" class="font-semibold text-gray-200 flex items-center justify-between">
+                      <span><i class="fas fa-brain text-purple-400 mr-2"></i>悟性</span>
+                      <span id="talent-wu-xing-value" class="text-lg font-bold text-blue-400">0</span>
+                    </label>
+                    <p class="text-sm text-gray-400 mt-1 mb-3">决定你领悟功法、破解禁制的能力。</p>
+                    <input id="talent-wu-xing" type="range" min="0" max="10" value="0" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer talent-slider">
+                  </div>
+                  <!-- 气运 -->
+                  <div class="card rounded-lg p-6">
+                    <label for="talent-qi-yun" class="font-semibold text-gray-200 flex items-center justify-between">
+                      <span><i class="fas fa-clover text-green-400 mr-2"></i>气运</span>
+                      <span id="talent-qi-yun-value" class="text-lg font-bold text-blue-400">0</span>
+                    </label>
+                    <p class="text-sm text-gray-400 mt-1 mb-3">影响你遇到奇遇、拾取宝物的概率。</p>
+                    <input id="talent-qi-yun" type="range" min="0" max="10" value="0" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer talent-slider">
+                  </div>
+                </div>
+              </details>
+
+              <!-- 物品选择 -->
+              <details class="collapsible-section" open>
+                <summary class="font-bold text-lg sm:text-xl mb-4 cursor-pointer">物品选择</summary>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-4">
+                  <!-- 背包/仓库 (修仙物品) -->
+                  <div>
+                    <h3 class="font-bold text-base mb-2">背包/仓库 (仙缘点: <span id="points-inventory-remaining" class="text-green-400 font-bold">5</span> / <span class="text-gray-400">5</span>)</h3>
+                    <div class="card rounded-lg p-4 sm:p-6">
+                      <p class="text-sm text-gray-400 mt-1 mb-3">选择你初始获得的修仙界物品。</p>
+                      <div id="inventory-items-container" class="space-y-3 max-h-60 sm:max-h-72 overflow-y-auto pr-2">
+                        <!-- 修仙物品将由JS动态填充 -->
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 帆布包 (地球物品) -->
+                  <div>
+                    <h3 class="font-bold text-base mb-2">帆布包 (遗物点: <span id="points-bag-remaining" class="text-cyan-400 font-bold">5</span> / <span class="text-gray-400">5</span>)</h3>
+                    <div class="card rounded-lg p-4 sm:p-6">
+                      <p class="text-sm text-gray-400 mt-1 mb-3">选择额外的个人物品。包内默认已有：<span class="text-gray-300 font-semibold">没电的手机、一套换洗衣物</span>。</p>
+                      <div id="bag-items-container" class="space-y-3 max-h-60 sm:max-h-72 overflow-y-auto pr-2">
+                        <!-- 地球物品将由JS动态填充 -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- 高级设置 -->
+              <details class="collapsible-section" open>
+                <summary class="font-bold text-lg sm:text-xl mb-4 cursor-pointer">高级设置</summary>
+                <div class="space-y-6 mt-4">
+                  <div>
+                    <h4 class="font-semibold text-gray-300 mb-2">绑定系统</h4>
+                    <div id="systems-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      <!-- 系统选项将由JS动态填充 -->
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- 点数总览 -->
+              <div class="text-center p-4 card rounded-lg">
+                <h3 class="font-bold text-lg">点数结算</h3>
+                <p class="text-sm text-gray-400">天赋、仙缘、遗物点数超出部分将自动从环境提供的额外点数中扣除。若额外点数不足，则无法开局。</p>
+                <p class="text-lg mt-2">最终剩余点数: <span id="points-extra-remaining" class="text-yellow-400 font-bold">0</span></p>
+              </div>
+
+              <!-- 确认按钮 -->
+              <div class="text-center flex justify-center items-center space-x-4">
+                <button id="load-previous-button" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                  <i class="fas fa-history mr-2"></i>读取上次
+                </button>
+                <button id="confirm-start-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 disabled:bg-gray-500 disabled:cursor-not-allowed">
+                  <i class="fas fa-check-circle mr-2"></i>确认开局
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="text-center mb-16 prose-custom">
+      <p class="mt-4 text-lg text-gray-400">完成开局设定后切换消息页以开始游玩</p>
+    </footer>
+  </div>
+
+</body>

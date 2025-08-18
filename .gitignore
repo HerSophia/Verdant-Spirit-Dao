@@ -1,0 +1,45 @@
+node_modules
+
+.DS_Store
+Thumbs.db
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ignore template and example folders
+/src/脚本模板/
+/src/脚本示例/
+/src/界面模板/
+/src/界面示例/
+/实时修改导入用模板/
+/_/
+
+# Also ignore their build outputs if they exist
+/dist/src/脚本模板/
+/dist/src/脚本示例/
+/dist/src/界面模板/
+/dist/src/界面示例/
+
+# Ignore miscellaneous root files
+/.editorconfig
+/.gitattributes
+/.prettierignore
+/.prettierrc
+/config.schema.json
+/config.yaml
+/eslint.config.js
+/global.d.ts
+/LICENSE
+/@types
+/src/PaxHeaders
+/slash_command.txt
+/tailwind.config.js
+/tsconfig.json
+/webpack.config.ts
+/webpack.xuanhuan.config.ts
+/postcss.config.js
+/.vscode
+/PaxHeaders
