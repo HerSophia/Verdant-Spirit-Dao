@@ -22,6 +22,16 @@ pnpm-debug.log*
 /dist/src/脚本示例/
 /dist/src/界面模板/
 /dist/src/界面示例/
+/dist/src/什么我要在玄幻修仙世界种田
+/dist/src/什么我要在玄幻修仙世界种田-Vue版本
+/dist/src/什么我要在玄幻修仙世界种田-第一条消息
+
+/dist/脚本模板/
+/dist/脚本示例/
+/dist/界面模板/
+/dist/界面示例/
+/dist/什么我要在玄幻修仙世界种田-Vue版本
+/dist/什么我要在玄幻修仙世界种田
 
 # Ignore miscellaneous root files
 /.editorconfig
@@ -43,3 +53,12 @@ pnpm-debug.log*
 /postcss.config.js
 /.vscode
 /PaxHeaders
+/src/什么我要在玄幻修仙世界种田-第一条消息
+/src/什么我要在玄幻修仙世界种田-Vue版本
+/src/什么我要在玄幻修仙世界种田
+/初始模板
+
+/src/什么我要在玄幻修仙世界种田-0楼版本/debug_file
+/src/什么我要在玄幻修仙世界种田-0楼版本/save
+
+/guide
