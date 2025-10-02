@@ -65,7 +65,7 @@
     "sass": "^1.93.2",
     "sass-loader": "^16.0.5",
     "socket.io": "^4.8.1",
-    "tailwindcss": "^4.1.13",
+    "tailwindcss": "^4.1.14",
     "terser-webpack-plugin": "^5.3.14",
     "ts-loader": "^9.5.4",
     "ts-node": "^10.9.2",
@@ -89,7 +89,7 @@
     ]
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.1.13",
+    "@tailwindcss/postcss": "^4.1.14",
     "fuse.js": "^7.1.0",
     "jquery": "^3.7.1",
     "jqueryui": "^1.11.1",
