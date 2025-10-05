@@ -8,6 +8,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+<<<<<<< HEAD
 
 # Ignore template and example folders
 /src/脚本模板/
@@ -62,3 +63,5 @@ pnpm-debug.log*
 /src/什么我要在玄幻修仙世界种田-0楼版本/save
 
 /guide
+=======
+>>>>>>> a33bed2145f0bf6e26af696e5258746d84a4755d
