@@ -20,7 +20,7 @@
     "defaults and partially supports es6-module"
   ],
   "devDependencies": {
-    "@eslint/js": "^9.38.0",
+    "@eslint/js": "^9.39.0",
     "@pinia/testing": "^1.0.2",
     "@types/cytoscape": "^3.31.0",
     "@types/dagre": "^0.7.53",
@@ -39,7 +39,7 @@
     "autoprefixer": "^10.4.21",
     "copy-webpack-plugin": "^13.0.1",
     "css-loader": "^7.1.2",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import-x": "^4.16.1",
@@ -62,7 +62,7 @@
     "postcss-cli": "^11.0.1",
     "postcss-loader": "^8.2.0",
     "postcss-nested": "^7.0.2",
-    "sass": "^1.93.2",
+    "sass": "^1.93.3",
     "sass-loader": "^16.0.6",
     "socket.io": "^4.8.1",
     "tailwindcss": "^4.1.16",
