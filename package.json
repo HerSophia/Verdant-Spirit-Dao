@@ -52,7 +52,7 @@
     "html-inline-script-webpack-plugin": "^3.2.1",
     "html-loader": "^5.1.0",
     "html-webpack-inline-svg-plugin": "^2.3.0",
-    "html-webpack-plugin": "^5.6.4",
+    "html-webpack-plugin": "^5.6.5",
     "jsdom": "^26.1.0",
     "lodash": "^4.17.21",
     "marked": "^16.4.2",
@@ -62,7 +62,7 @@
     "postcss-cli": "^11.0.1",
     "postcss-loader": "^8.2.0",
     "postcss-nested": "^7.0.2",
-    "sass": "^1.94.0",
+    "sass": "^1.94.1",
     "sass-loader": "^16.0.6",
     "socket.io": "^4.8.1",
     "tailwindcss": "^4.1.17",
@@ -79,7 +79,7 @@
     "vitest": "^3.2.4",
     "vue-eslint-parser": "^10.2.0",
     "vue-loader": "^17.4.2",
-    "webpack": "^5.102.1",
+    "webpack": "^5.103.0",
     "webpack-cli": "^6.0.1"
   },
   "pnpm": {
