@@ -4,4 +4,8 @@ alwaysApply: true
 
 # MCP
 
+<<<<<<< HEAD
 你可以通过 browser-tools-mcp 自行读取酒馆网页当前的 DOM 情况、实际显示情况和 Console 情况.
+=======
+你可以通过 browsermcp 自行读取酒馆网页当前的 DOM 情况、实际显示情况和 Console 情况.
+>>>>>>> 72061122c68de1dd79d5df4b9edb19cf459ab600
