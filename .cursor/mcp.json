@@ -1,5 +1,6 @@
 {
   "mcpServers": {
+<<<<<<< HEAD
     "github.com/AgentDeskAI/browser-tools-mcp": {
       "disabled": false,
       "timeout": 60,
@@ -9,6 +10,14 @@
         "@agentdeskai/browser-tools-mcp@latest"
       ],
       "transportType": "stdio"
+=======
+    "chrome-devtools": {
+      "command": "pnpx",
+      "args": [
+        "chrome-devtools-mcp@latest",
+        "--autoConnect"
+      ]
+>>>>>>> 73c4586a45f7285ddd527cb83f79dadb3f5fdd2e
     }
   }
 }
