@@ -23,7 +23,7 @@
     "@eslint/js": "^9.39.3",
     "@pinia/testing": "^1.0.3",
     "@types/cytoscape": "^3.31.0",
-    "@types/dagre": "^0.7.53",
+    "@types/dagre": "^0.7.54",
     "@types/glob": "^8.1.0",
     "@types/jquery": "^3.5.34",
     "@types/jqueryui": "^1.12.24",
@@ -79,7 +79,7 @@
     "vitest": "^3.2.4",
     "vue-eslint-parser": "^10.4.0",
     "vue-loader": "^17.4.2",
-    "webpack": "^5.105.2",
+    "webpack": "^5.105.3",
     "webpack-cli": "^6.0.1"
   },
   "pnpm": {
