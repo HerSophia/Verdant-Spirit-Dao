@@ -33,7 +33,7 @@
     "@types/toastr": "^2.1.43",
     "@types/webpack": "^5.28.5",
     "@typescript-eslint/parser": "^8.57.0",
-    "@vitejs/plugin-vue": "^6.0.4",
+    "@vitejs/plugin-vue": "^6.0.5",
     "@vue/compiler-sfc": "^3.5.30",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.27",
