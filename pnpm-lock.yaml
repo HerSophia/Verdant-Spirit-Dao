@@ -131,10 +131,10 @@ importers:
         version: 0.2.1
       html-inline-css-webpack-plugin:
         specifier: ^1.11.2
-        version: 1.11.2(html-webpack-plugin@5.6.6(webpack@5.106.2))
+        version: 1.11.2(html-webpack-plugin@5.6.7(webpack@5.106.2))
       html-inline-script-webpack-plugin:
         specifier: ^3.2.1
-        version: 3.2.1(html-webpack-plugin@5.6.6(webpack@5.106.2))(webpack@5.106.2)
+        version: 3.2.1(html-webpack-plugin@5.6.7(webpack@5.106.2))(webpack@5.106.2)
       html-loader:
         specifier: ^5.1.0
         version: 5.1.0(webpack@5.106.2)
@@ -142,8 +142,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       html-webpack-plugin:
-        specifier: ^5.6.6
-        version: 5.6.6(webpack@5.106.2)
+        specifier: ^5.6.7
+        version: 5.6.7(webpack@5.106.2)
       jsdom:
         specifier: ^26.1.0
         version: 26.1.0
@@ -208,8 +208,8 @@ importers:
         specifier: ^7.3.2
         version: 7.3.2(@types/node@25.6.0)(jiti@2.6.1)(lightningcss@1.32.0)(sass@1.99.0)(terser@5.46.1)(yaml@2.8.3)
       vite-plugin-singlefile:
-        specifier: ^2.3.2
-        version: 2.3.2(rollup@4.60.1)(vite@7.3.2(@types/node@25.6.0)(jiti@2.6.1)(lightningcss@1.32.0)(sass@1.99.0)(terser@5.46.1)(yaml@2.8.3))
+        specifier: ^2.3.3
+        version: 2.3.3(rollup@4.60.1)(vite@7.3.2(@types/node@25.6.0)(jiti@2.6.1)(lightningcss@1.32.0)(sass@1.99.0)(terser@5.46.1)(yaml@2.8.3))
       vitepress:
         specifier: ^1.6.4
         version: 1.6.4(@algolia/client-search@5.50.2)(@types/node@25.6.0)(axios@1.15.0)(fuse.js@7.3.0)(lightningcss@1.32.0)(postcss@8.5.10)(sass@1.99.0)(search-insights@2.17.3)(terser@5.46.1)(typescript@5.9.3)
@@ -735,12 +735,16 @@ packages:
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@humanfs/core@0.19.1':
-    resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
+  '@humanfs/core@0.19.2':
+    resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
     engines: {node: '>=18.18.0'}
 
-  '@humanfs/node@0.16.7':
-    resolution: {integrity: sha512-/zUx+yOsIrG4Y43Eh2peDeKCxlRt/gET6aHfaKpuq267qXdYDFViVHfMaLyygZOnl0kGWxFIgsBy8QFuTLUXEQ==}
+  '@humanfs/node@0.16.8':
+    resolution: {integrity: sha512-gE1eQNZ3R++kTzFUpdGlpmy8kDZD/MLyHqDwqjkVQI0JMdI1D51sy1H958PNXYkM2rAac7e5/CnIKZrHtPh3BQ==}
+    engines: {node: '>=18.18.0'}
+
+  '@humanfs/types@0.15.0':
+    resolution: {integrity: sha512-ZZ1w0aoQkwuUuC7Yf+7sdeaNfqQiiLcSRbfI08oAxqLtpXQr9AIVX7Ay7HLDuiLYAaFPu8oBYNq/QIi9URHJ3Q==}
     engines: {node: '>=18.18.0'}
 
   '@humanwhocodes/module-importer@1.0.1':
@@ -2249,8 +2253,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  electron-to-chromium@1.5.339:
-    resolution: {integrity: sha512-Is+0BBHJ4NrdpAYiperrmp53pLywG/yV/6lIMTAnhxvzj/Cmn5Q/ogSHC6AKe7X+8kPLxxFk0cs5oc/3j/fxIg==}
+  electron-to-chromium@1.5.340:
+    resolution: {integrity: sha512-908qahOGocRMinT2nM3ajCEM99H4iPdv84eagPP3FfZy/1ZGeOy2CZYzjhms81ckOPCXPlW7LkY4XpxD8r1DrA==}
 
   email-addresses@5.0.0:
     resolution: {integrity: sha512-4OIPYlA6JXqtVn8zpHpGiI7vE6EQOAg16aGnDMIAlZVinnoZ8208tW1hAbjWydgN/4PLTT9q+O1K6AH/vALJGw==}
@@ -2748,8 +2752,8 @@ packages:
   hash-sum@2.0.0:
     resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
 
-  hasown@2.0.2:
-    resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
+  hasown@2.0.3:
+    resolution: {integrity: sha512-ej4AhfhfL2Q2zpMmLo7U1Uv9+PyhIZpgQLGT1F9miIGmiCJIoCgSmczFdrc97mWT4kVY72KA+WnnhJ5pghSvSg==}
     engines: {node: '>= 0.4'}
 
   hast-util-to-html@9.0.5:
@@ -2809,8 +2813,8 @@ packages:
   html-webpack-inline-svg-plugin@2.3.0:
     resolution: {integrity: sha512-NMeirc/kQX2/5qwr6fYrWwqYQsQt5ZcasgR2Jpm04fgZLr1eVm55cetgd5Dr/w7TyEYb+ZlWhAugZCktbgbUNw==}
 
-  html-webpack-plugin@5.6.6:
-    resolution: {integrity: sha512-bLjW01UTrvoWTJQL5LsMRo1SypHW80FTm12OJRSnr3v6YHNhfe+1r0MYUZJMACxnCHURVnBWRwAsWs2yPU9Ezw==}
+  html-webpack-plugin@5.6.7:
+    resolution: {integrity: sha512-md+vXtdCAe60s1k6AU3dUyMJnDxUyQAwfwPKoLisvgUF1IXjtlLsk2se54+qfL9Mdm26bbwvjJybpNx48NKRLw==}
     engines: {node: '>=10.13.0'}
     peerDependencies:
       '@rspack/core': 0.x || 1.x
@@ -4367,12 +4371,15 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
-  vite-plugin-singlefile@2.3.2:
-    resolution: {integrity: sha512-b8SxCi/gG7K298oJDcKOuZeU6gf6wIcCJAaEqUmmZXdjfuONlkyNyWZC3tEbN6QockRCNUd3it9eGTtpHGoYmg==}
+  vite-plugin-singlefile@2.3.3:
+    resolution: {integrity: sha512-XVnGH0QzbOa8fxRSsHdCarVN1BSBXNi7uLMQYlrGRN5apdHkk62XQWRJhVever0lnfuyBkwn+kvVChdm/OoOUg==}
     engines: {node: '>18.0.0'}
     peerDependencies:
       rollup: ^4.59.0
-      vite: ^5.4.11 || ^6.0.0 || ^7.0.0 || ^8.0.0
+      vite: ^5.4.21 || ^6.0.0 || ^7.0.0 || ^8.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
 
   vite@5.4.21:
     resolution: {integrity: sha512-o5a9xKjbtuhY6Bi5S3+HvbRERmouabWbyUcpXXUA1u+GNUKoROi9byOJ8M0nHbHYHkYICiMlqxkg1KkYmm25Sw==}
@@ -5083,12 +5090,17 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@humanfs/core@0.19.1': {}
-
-  '@humanfs/node@0.16.7':
+  '@humanfs/core@0.19.2':
     dependencies:
-      '@humanfs/core': 0.19.1
+      '@humanfs/types': 0.15.0
+
+  '@humanfs/node@0.16.8':
+    dependencies:
+      '@humanfs/core': 0.19.2
+      '@humanfs/types': 0.15.0
       '@humanwhocodes/retry': 0.4.3
+
+  '@humanfs/types@0.15.0': {}
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
@@ -6132,7 +6144,7 @@ snapshots:
     dependencies:
       baseline-browser-mapping: 2.10.19
       caniuse-lite: 1.0.30001788
-      electron-to-chromium: 1.5.339
+      electron-to-chromium: 1.5.340
       node-releases: 2.0.37
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
@@ -6592,7 +6604,7 @@ snapshots:
       minimatch: 9.0.9
       semver: 7.7.4
 
-  electron-to-chromium@1.5.339: {}
+  electron-to-chromium@1.5.340: {}
 
   email-addresses@5.0.0: {}
 
@@ -6675,7 +6687,7 @@ snapshots:
       has-property-descriptors: 1.0.2
       has-proto: 1.2.0
       has-symbols: 1.1.0
-      hasown: 2.0.2
+      hasown: 2.0.3
       internal-slot: 1.1.0
       is-array-buffer: 3.0.5
       is-callable: 1.2.7
@@ -6727,7 +6739,7 @@ snapshots:
       es-errors: 1.3.0
       get-intrinsic: 1.3.0
       has-tostringtag: 1.0.2
-      hasown: 2.0.2
+      hasown: 2.0.3
 
   es-to-primitive@1.3.0:
     dependencies:
@@ -6897,7 +6909,7 @@ snapshots:
       '@eslint/eslintrc': 3.3.5
       '@eslint/js': 9.39.4
       '@eslint/plugin-kit': 0.4.1
-      '@humanfs/node': 0.16.7
+      '@humanfs/node': 0.16.8
       '@humanwhocodes/module-importer': 1.0.1
       '@humanwhocodes/retry': 0.4.3
       '@types/estree': 1.0.8
@@ -7072,7 +7084,7 @@ snapshots:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       es-set-tostringtag: 2.1.0
-      hasown: 2.0.2
+      hasown: 2.0.3
       mime-types: 2.1.35
 
   fraction.js@5.3.4: {}
@@ -7094,7 +7106,7 @@ snapshots:
       call-bound: 1.0.4
       define-properties: 1.2.1
       functions-have-names: 1.2.3
-      hasown: 2.0.2
+      hasown: 2.0.3
       is-callable: 1.2.7
 
   functions-have-names@1.2.3: {}
@@ -7115,7 +7127,7 @@ snapshots:
       get-proto: 1.0.1
       gopd: 1.2.0
       has-symbols: 1.1.0
-      hasown: 2.0.2
+      hasown: 2.0.3
       math-intrinsics: 1.1.0
 
   get-proto@1.0.1:
@@ -7213,7 +7225,7 @@ snapshots:
 
   hash-sum@2.0.0: {}
 
-  hasown@2.0.2:
+  hasown@2.0.3:
     dependencies:
       function-bind: 1.1.2
 
@@ -7257,15 +7269,15 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  html-inline-css-webpack-plugin@1.11.2(html-webpack-plugin@5.6.6(webpack@5.106.2)):
+  html-inline-css-webpack-plugin@1.11.2(html-webpack-plugin@5.6.7(webpack@5.106.2)):
     dependencies:
-      html-webpack-plugin: 5.6.6(webpack@5.106.2)
+      html-webpack-plugin: 5.6.7(webpack@5.106.2)
       lodash: 4.18.1
       tslib: 2.8.1
 
-  html-inline-script-webpack-plugin@3.2.1(html-webpack-plugin@5.6.6(webpack@5.106.2))(webpack@5.106.2):
+  html-inline-script-webpack-plugin@3.2.1(html-webpack-plugin@5.6.7(webpack@5.106.2))(webpack@5.106.2):
     dependencies:
-      html-webpack-plugin: 5.6.6(webpack@5.106.2)
+      html-webpack-plugin: 5.6.7(webpack@5.106.2)
       webpack: 5.106.2(webpack-cli@6.0.1)
 
   html-loader@5.1.0(webpack@5.106.2):
@@ -7307,7 +7319,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  html-webpack-plugin@5.6.6(webpack@5.106.2):
+  html-webpack-plugin@5.6.7(webpack@5.106.2):
     dependencies:
       '@types/html-minifier-terser': 6.1.0
       html-minifier-terser: 6.1.0
@@ -7397,7 +7409,7 @@ snapshots:
   internal-slot@1.1.0:
     dependencies:
       es-errors: 1.3.0
-      hasown: 2.0.2
+      hasown: 2.0.3
       side-channel: 1.1.0
 
   interpret@3.1.1: {}
@@ -7439,7 +7451,7 @@ snapshots:
 
   is-core-module@2.16.1:
     dependencies:
-      hasown: 2.0.2
+      hasown: 2.0.3
 
   is-data-view@1.0.2:
     dependencies:
@@ -7494,7 +7506,7 @@ snapshots:
       call-bound: 1.0.4
       gopd: 1.2.0
       has-tostringtag: 1.0.2
-      hasown: 2.0.2
+      hasown: 2.0.3
 
   is-set@2.0.3: {}
 
@@ -8984,11 +8996,12 @@ snapshots:
       - tsx
       - yaml
 
-  vite-plugin-singlefile@2.3.2(rollup@4.60.1)(vite@7.3.2(@types/node@25.6.0)(jiti@2.6.1)(lightningcss@1.32.0)(sass@1.99.0)(terser@5.46.1)(yaml@2.8.3)):
+  vite-plugin-singlefile@2.3.3(rollup@4.60.1)(vite@7.3.2(@types/node@25.6.0)(jiti@2.6.1)(lightningcss@1.32.0)(sass@1.99.0)(terser@5.46.1)(yaml@2.8.3)):
     dependencies:
       micromatch: 4.0.8
-      rollup: 4.60.1
       vite: 7.3.2(@types/node@25.6.0)(jiti@2.6.1)(lightningcss@1.32.0)(sass@1.99.0)(terser@5.46.1)(yaml@2.8.3)
+    optionalDependencies:
+      rollup: 4.60.1
 
   vite@5.4.21(@types/node@25.6.0)(lightningcss@1.32.0)(sass@1.99.0)(terser@5.46.1):
     dependencies:
