@@ -32,7 +32,7 @@
     "@types/marked": "^5.0.2",
     "@types/toastr": "^2.1.43",
     "@types/webpack": "^5.28.5",
-    "@typescript-eslint/parser": "^8.58.2",
+    "@typescript-eslint/parser": "^8.59.0",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vue/compiler-sfc": "^3.5.32",
     "@vue/test-utils": "^2.4.6",
@@ -65,7 +65,7 @@
     "sass": "^1.99.0",
     "sass-loader": "^16.0.7",
     "socket.io": "^4.8.3",
-    "tailwindcss": "^4.2.2",
+    "tailwindcss": "^4.2.3",
     "terser-webpack-plugin": "^5.4.0",
     "ts-loader": "^9.5.7",
     "ts-node": "^10.9.2",
@@ -89,7 +89,7 @@
     ]
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.2.2",
+    "@tailwindcss/postcss": "^4.2.3",
     "fuse.js": "^7.3.0",
     "jquery": "^3.7.1",
     "jqueryui": "^1.11.1",
