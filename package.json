@@ -34,7 +34,7 @@
     "@types/webpack": "^5.28.5",
     "@typescript-eslint/parser": "^8.59.2",
     "@vitejs/plugin-vue": "^6.0.6",
-    "@vue/compiler-sfc": "^3.5.33",
+    "@vue/compiler-sfc": "^3.5.34",
     "@vue/test-utils": "^2.4.10",
     "autoprefixer": "^10.5.0",
     "copy-webpack-plugin": "^13.0.1",
@@ -98,7 +98,7 @@
     "toastr": "^2.1.4",
     "unplugin-auto-import": "^20.3.0",
     "unplugin-vue-components": "^29.2.0",
-    "vue": "^3.5.33",
+    "vue": "^3.5.34",
     "yaml": "^2.8.4",
     "zod": "^4.4.3"
   }
