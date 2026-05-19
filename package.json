@@ -32,7 +32,7 @@
     "@types/marked": "^5.0.2",
     "@types/toastr": "^2.1.43",
     "@types/webpack": "^5.28.5",
-    "@typescript-eslint/parser": "^8.59.3",
+    "@typescript-eslint/parser": "^8.59.4",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/compiler-sfc": "^3.5.34",
     "@vue/test-utils": "^2.4.10",
