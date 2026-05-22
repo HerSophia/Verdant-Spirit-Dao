@@ -62,7 +62,7 @@
     "postcss-cli": "^11.0.1",
     "postcss-loader": "^8.2.1",
     "postcss-nested": "^7.0.2",
-    "sass": "^1.99.0",
+    "sass": "^1.100.0",
     "sass-loader": "^16.0.8",
     "socket.io": "^4.8.3",
     "tailwindcss": "^4.3.0",
@@ -79,7 +79,7 @@
     "vitest": "^3.2.4",
     "vue-eslint-parser": "^10.4.0",
     "vue-loader": "^17.4.2",
-    "webpack": "^5.107.0",
+    "webpack": "^5.107.1",
     "webpack-cli": "^6.0.1"
   },
   "pnpm": {
