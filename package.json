@@ -32,7 +32,7 @@
     "@types/marked": "^5.0.2",
     "@types/toastr": "^2.1.43",
     "@types/webpack": "^5.28.5",
-    "@typescript-eslint/parser": "^8.59.4",
+    "@typescript-eslint/parser": "^8.60.0",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/compiler-sfc": "^3.5.34",
     "@vue/test-utils": "^2.4.10",
@@ -79,7 +79,7 @@
     "vitest": "^3.2.4",
     "vue-eslint-parser": "^10.4.0",
     "vue-loader": "^17.4.2",
-    "webpack": "^5.107.1",
+    "webpack": "^5.107.2",
     "webpack-cli": "^6.0.1"
   },
   "pnpm": {
