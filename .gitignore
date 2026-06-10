@@ -9,6 +9,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+<<<<<<< HEAD
 # Ignore template and example folders
 /src/脚本模板/
 /src/脚本示例/
@@ -62,3 +63,7 @@ pnpm-debug.log*
 /src/什么我要在玄幻修仙世界种田-0楼版本/save
 
 /guide
+=======
+auto-imports.d.ts
+components.d.ts
+>>>>>>> fdfcbc5386747889d0b011123d4dde6612c67d1b
