@@ -35,7 +35,7 @@
     "@typescript-eslint/parser": "^8.72.2",
     "@vitejs/plugin-vue": "^6.0.11",
     "@vue/compiler-sfc": "^3.5.45",
-    "@vue/test-utils": "^2.5.1",
+    "@vue/test-utils": "^2.6.0",
     "autoprefixer": "^10.6.2",
     "copy-webpack-plugin": "^13.0.1",
     "css-loader": "^7.1.5",
